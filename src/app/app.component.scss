@@ -1,0 +1,15 @@
+@import './styles/variables';
+@import './styles/mixins';
+
+.app-layout {
+  display: flex;
+  height: calc(100vh - $header-height);
+  margin-top: $header-height;
+}
+
+.app-content {
+  flex: 1;
+  padding: $spacing-md;
+  background-color: $gray-50;
+  overflow-y: auto;
+}

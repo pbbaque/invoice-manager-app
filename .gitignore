@@ -1,42 +1,107 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
-# Compiled output
+# --------------------------------------
+# Angular compiled output
+# --------------------------------------
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/.angular/cache
+/.angular/coverage
 
-# Node
+# --------------------------------------
+# Node dependencies and lock files
+# --------------------------------------
 /node_modules
-npm-debug.log
-yarn-error.log
+/package-lock.json
+/yarn.lock
+/npm-debug.log*
+/yarn-error.log*
 
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# --------------------------------------
+# Build artifacts
+# --------------------------------------
+*.tgz
+*.gz
+*.zip
 
-# Visual Studio Code
-.vscode/*
+# --------------------------------------
+# Testing
+# --------------------------------------
+/coverage
+/testem.log
+/junit.xml
+
+# --------------------------------------
+# System files
+# --------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# --------------------------------------
+# Sass / SCSS cache
+# --------------------------------------
+.sass-cache/
+
+# --------------------------------------
+# TypeScript
+# --------------------------------------
+/typings
+*.tsbuildinfo
+
+# --------------------------------------
+# Editors and IDEs
+# --------------------------------------
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
 
-# System files
-.DS_Store
-Thumbs.db
+# Eclipse
+.project
+.classpath
+.settings/
+*.launch
+
+# Cloud9
+.c9/
+
+# VS Code History Plugin
+.history/
+
+# --------------------------------------
+# Environment files (customize if needed)
+# --------------------------------------
+src/environments/environment*.ts
+
+# --------------------------------------
+# Local backup files
+# --------------------------------------
+*.bak
+*.swp
+*.tmp
+*~
+
+# --------------------------------------
+# Log files
+# --------------------------------------
+*.log
+
+# --------------------------------------
+# NGRX store freeze debug
+# --------------------------------------
+store.freeze.*
+
+.env
+.env.local
+.env.production
+.env.development
+*.env
