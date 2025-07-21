@@ -1,7 +1,9 @@
+import { Employee } from "./employee";
+
 export interface User {
     id: number;
     username: string;
-    password: string;
+    password?: string;
     email: string;
-    enabled: boolean;
+    employee?: Employee | null;
 }

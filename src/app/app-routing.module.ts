@@ -1,21 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { InvoiceListComponent } from './views/invoices/invoice-list/invoice-list.component';
-import { ClientListComponent } from './views/clients/client-list/client-list.component';
-import { UserListComponent } from './views/users/user-list/user-list.component';
-import { EmployeeListComponent } from './views/employees/employee-list/employee-list.component';
-import { LoginComponent } from './views/users/login/login.component';
+import { NotFoundComponent } from './views/not-found/not-found.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'invoices', component: InvoiceListComponent },
-  { path: 'clients', component: ClientListComponent },
-  { path: 'users', component: UserListComponent },
-  { path: 'employees', component: EmployeeListComponent },
-  { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: 'login' } 
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full'
+  },
+  { 
+    path: 'auth', loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'clients', loadChildren: () => import('./views/clients/clients.module').then(m => m.ClientsModule) },
+      { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) },
+      { path: 'employees', loadChildren: () => import('./views/employees/employees.module').then(m => m.EmployeesModule) },
+      { path: 'invoices', loadChildren: () => import('./views/invoices/invoices.module').then(m => m.InvoicesModule) },
+      { path: 'users', loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule) },
+    ]
+  },
+  { 
+    path: '**', 
+    component: NotFoundComponent 
+  }
 ];
 
 @NgModule({

@@ -13,7 +13,7 @@ html {
 
 body {
     font-family: v.$font-family-base;
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem);
 }
 
 a {

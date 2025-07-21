@@ -11,6 +11,7 @@ import { ModalComponent } from './modal/modal.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TableComponent } from './table/table.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -26,7 +27,8 @@ import { TableComponent } from './table/table.component';
     ModalComponent, 
     PaginationComponent, 
     SidebarComponent, 
-    TableComponent
+    TableComponent, 
+    FooterComponent
   ],
   imports: [
     CommonModule
@@ -42,7 +44,8 @@ import { TableComponent } from './table/table.component';
     ModalComponent, 
     PaginationComponent, 
     SidebarComponent, 
-    TableComponent
+    TableComponent,
+    FooterComponent
   ]
 })
 export class ComponentsModule { }

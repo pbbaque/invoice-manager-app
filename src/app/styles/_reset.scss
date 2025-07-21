@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 *,
 *::before,
 *::after {
@@ -8,9 +10,9 @@
 
 html, body {
   height: 100%;
-  font-family: $font-family-base;
-  color: $text-color;
-  background-color: $gray-50;
+  font-family: v.$font-family-base;
+  color: v.$text-color;
+  background-color: v.$gray-50;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

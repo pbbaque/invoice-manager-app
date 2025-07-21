@@ -1,0 +1,33 @@
+@use "index" as *;
+
+.auth {
+  min-width: 50rem;
+
+  &__logo {
+    font-weight: $font-weight-heavy;
+    font-size: $font-size-xl;
+    user-select: none;
+    text-align: center;
+    margin: 3rem 0;
+
+    &--accent {
+      color: $color-accent;
+    }
+  }
+
+  &__text {
+    text-align: center;
+  }
+
+  &--register {
+    .form__group--grid {
+      display: grid;
+      column-gap: 2rem;
+      grid-template-columns: 1fr;
+
+      @include tablet {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+}

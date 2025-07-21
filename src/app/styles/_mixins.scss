@@ -1,23 +1,23 @@
 @use 'variables' as v;
 
 /** Media Queries **/
-@mixin telefono {
-    @media (min-width: v.$telefono) {
+@mixin phone {
+    @media (min-width: v.$breakpoint-phone) {
         @content;
     }
 }
 @mixin tablet {
-    @media (min-width: v.$tablet) {
+    @media (min-width: v.$breakpoint-tablet) {
         @content;
     }
 }
 @mixin desktop {
-    @media (min-width: v.$desktop) {
+    @media (min-width: v.$breakpoint-desktop) {
         @content;
     }
 }
 @mixin xl_desktop {
-    @media (min-width: v.$xl_desktop) {
+    @media (min-width: v.$breakpoint-xl-desktop) {
         @content;
     }
 }
@@ -27,19 +27,18 @@
   padding: 1.5rem 4rem;
   color: $textColor;
   font-size: 1.8rem;
-  font-weight: v.$bold;
+  font-weight: v.$font-weight-bold;
   border: none;
-  transition-property: background-color;
-  transition-duration: .3s;
+  transition: background-color .3s;
   text-align: center;
   width: 100%;
   display: inline-block;
 
   &:hover {
-    background-color: darken( $bgColor, 10%);
+    background-color: darken($bgColor, 10%);
   }
-
 }
+
 
 @mixin grid($columns, $gap) {
   display: grid;
@@ -48,7 +47,7 @@
 }
 
 @mixin container {
-  width: min(95%, 140rem);
+  width: min(95%, 120rem);
   margin: 0 auto;
 }
 
@@ -64,20 +63,18 @@
 
 @mixin headings {
   font-family: v.$font-family-base;
-  font-weight: v.$heavy;
-  margin: 2rem 0;
+  font-weight: v.$font-weight-heavy; 
 }
 
 @mixin page-name {
   @include headings;
-  margin: 6rem 0 3rem 0;
   text-align: center;
 }
 
 @mixin page-description {
   text-align: center;
   font-size: 1.8rem;
-  font-weight: v.$thin;
+  font-weight: v.$font-weight-thin;
   color: v.$text-color;
   margin-bottom: 5rem;
 }
@@ -144,7 +141,7 @@
 }
 
 @mixin card {
-  border: 1px solid lighten($color: v.$gray-50, 10);
+  border: 1px solid lighten(v.$gray-50, 10);
   padding: 3rem;
 
   &__name {

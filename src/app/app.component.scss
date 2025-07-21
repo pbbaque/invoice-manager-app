@@ -1,15 +1,8 @@
-@import './styles/variables';
-@import './styles/mixins';
+@use 'styles/index' as *;
 
-.app-layout {
-  display: flex;
-  height: calc(100vh - $header-height);
-  margin-top: $header-height;
-}
-
-.app-content {
-  flex: 1;
-  padding: $spacing-md;
-  background-color: $gray-50;
-  overflow-y: auto;
+:host {
+  display: block;
+  background-color: $background-muted; 
+  color: $text-color;
+  font-family: $font-family-base;
 }
