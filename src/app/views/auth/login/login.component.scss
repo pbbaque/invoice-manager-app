@@ -2,14 +2,22 @@
 
 .auth {
   @include container;
-  min-width: 50rem;
+  width: 100%;
+  padding: 2rem;
 
   &__logo {
     font-weight: $font-weight-heavy;
-    font-size: $font-size-xl;
     user-select: none;
     text-align: center;
-    margin: 3rem 0;
+    margin: 1rem 0;
+
+    &__text {
+      font-size: 3rem;
+
+      @include tablet {
+        font-size: 5rem;
+      }
+    }
 
     &--accent {
       color: $color-accent;
@@ -18,5 +26,11 @@
 
   &__text {
     text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+
+    @include tablet {
+      font-size: 1.8rem;
+    }
   }
 }

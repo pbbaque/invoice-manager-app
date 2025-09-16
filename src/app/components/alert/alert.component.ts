@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+type AlertType = 'success' | 'error' | 'info' | 'warning';
 
 @Component({
   selector: 'app-alert',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrl: './alert.component.scss'
 })
 export class AlertComponent {
+  @Input() message: string = '';
+  @Input() type: AlertType = 'info';
+  @Input() visible: boolean = false;
+
+ @Output() closed = new EventEmitter<void>();
+
+  close() {
+    this.visible = false;
+    this.closed.emit();
+  }
 
 }

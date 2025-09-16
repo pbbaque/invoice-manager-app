@@ -14,7 +14,6 @@ export class AuthService {
   private apiUrl: string = environment.apiUrl;
   private headers = { 'Content-Type': 'application/json' };
 
-  // Reactive state to control login/logout throughout the application
   private loggedIn: BehaviorSubject<boolean>;
 
   constructor(private http: HttpClient, private storageService: StorageService) {
@@ -34,7 +33,6 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }): Observable<ApiResponse<User>> {
-    console.log('Logging in with credentials:', credentials);
     return this.http.post<ApiResponse<User>>(`${this.apiUrl}/auth/login`, credentials, { headers: this.headers }).pipe(
       tap(
         response => {
@@ -45,6 +43,9 @@ export class AuthService {
             this.loggedIn.next(true);
             console.log('Login successful, token saved:', token);
           }
+        },
+        error => {
+          console.error('Login error', error);
         }
       )
     );
@@ -53,6 +54,25 @@ export class AuthService {
   logout(): void {
     this.storageService.clear();
     this.loggedIn.next(false);
+    console.log('User logged out');
+  }
+
+  private checkTokenValidity(): void {
+    const token  = this.storageService.getToken();
+
+    if(token) {
+      try {
+        const payload = JSON.parse(atob(token.split('. ')[1]));
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (payload.exp < currentTime) {
+          console.log('Token expired, logging out');
+          this.logout();
+        }
+      } catch (error) {
+        console.error('Error checking token validity: ', error);
+        this.logout();
+      }
+    }
   }
 
   forgotPassword(email: string) {

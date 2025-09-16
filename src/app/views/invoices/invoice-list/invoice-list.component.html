@@ -1,1 +1,91 @@
-<p>invoice-list works!</p>
+<div class="page">
+  <div class="page__header">
+    <h2 class="page__name">Listado de Facturas</h2>
+    <p class="page__description">
+      Aquí puedes consultar todas las facturas registradas en el sistema.
+    </p>
+  </div>
+
+  <div class="page__actions">
+    <div class="page__search">
+      <button class="btn btn--primary">Buscar</button>
+      <input
+        type="text"
+        class="search__input"
+        placeholder="Buscar facturas..."
+      />
+    </div>
+    <button class="btn btn--secondary">Añadir Facturas</button>
+  </div>
+
+  <div class="page__content">
+    <div class="list__wrapper">
+      <ul class="list">
+        <li class="list__item">
+          <p class="list__title">#1 - 21/07/2025 22:45</p>
+          <p class="list__subtitle">Tech Solutions</p>
+          <p class="list__subtitle">Juan Perez</p>
+          <div class="list__actions">
+            <button class="btn btn--warning">Editar</button>
+            <button class="btn btn--error">Eliminar</button>
+          </div>
+        </li>
+        <li class="list__item">
+          <p class="list__title">#2 - 21/07/2025 22:45</p>
+          <p class="list__subtitle">Tech Solutions</p>
+          <p class="list__subtitle">Juan Perez</p>
+          <div class="list__actions">
+            <button class="btn btn--warning">Editar</button>
+            <button class="btn btn--error">Eliminar</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="table__wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Empresa</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="no-wrap">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            </td>
+            <td>Juan Perez</td>
+            <td>21/07/2025 22:45</td>
+            <td>Tech Solutions</td>
+            <td>5000</td>
+            <td class="table__actions">
+              <button class="btn btn--warning">Editar</button>
+              <button class="btn btn--error">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="no-wrap">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            </td>
+            <td>Juan Perez</td>
+            <td>21/07/2025 22:45</td>
+            <td>Tech Solutions</td>
+            <td>5000</td>
+            <td class="table__actions">
+              <button class="btn btn--warning">Editar</button>
+              <button class="btn btn--error">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

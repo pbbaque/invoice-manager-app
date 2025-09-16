@@ -1,0 +1,38 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: v.$font-size-base;
+
+  th,
+  td {
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid v.$gray-200;
+  }
+
+  th {
+    background-color: v.$color-primary;
+    color: v.$white;
+    font-weight: v.$font-weight-bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: v.$gray-200;
+  }
+
+  tr:hover {
+    background-color: lighten(v.$color-primary, 42%);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  @include m.tablet {
+    display: table;
+  }
+}

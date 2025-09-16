@@ -1,0 +1,112 @@
+@use "index" as *;
+
+.page {
+  @include container;
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__name {
+    @include page-name;
+  }
+
+  &__description {
+    @include page-description;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      .btn {
+        align-self: flex-end;
+        width: fit-content;
+      }
+    }
+  }
+
+  &__search {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+
+    .search__input {
+      padding: 1rem;
+      font-size: $font-size-base;
+      border: 1px solid $gray-300;
+      border-radius: 0.5rem;
+      width: 100%;
+      @include shadow;
+    }
+    .btn {
+      align-self: flex-end;
+      width: 100%;
+    }
+
+    @include tablet {
+      flex-direction: row;
+      width: auto;
+
+      .search__input {
+        width: 300px;
+      }
+    }
+  }
+
+  &__content {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-height: 40vh;
+    overflow-y: auto;
+
+    .list__wrapper,
+    .table__wrapper {
+      overflow-y: auto;
+      @include shadow;
+    }
+  }
+}
+
+.table__wrapper {
+  display: none;
+
+  @include tablet {
+    display: block;
+    overflow-x: auto;
+    @include shadow;
+  }
+}
+
+.btn {
+  @include button($color-primary, $white);
+  font-size: $font-size-sm;
+
+  &--secondary {
+    @include button($color-secondary, $white);
+  }
+
+  &--warning {
+    @include button($color-warning, $white);
+  }
+
+  &--error {
+    @include button($color-error, $white);
+  }
+}
+
+.no-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}

@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { NotFoundComponent } from './views/not-found/not-found.component';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { authInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,12 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
     AppRoutingModule,
     ComponentsModule
   ],
-  providers: [ provideHttpClient()],
+  providers: [ 
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

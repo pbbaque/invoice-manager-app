@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  sidebarOpen = false;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar() {
+    if (this.sidebarOpen) {
+      this.toggleSidebar();
+    }
+  }
+
 }

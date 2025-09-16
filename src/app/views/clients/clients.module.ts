@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ClientListComponent } from './client-list/client-list.component';
 import { ClientDetailComponent } from './client-detail/client-detail.component';
 import { ClientsRoutingModule } from './clients-routing.module';
+import { ComponentsModule } from '../../components/components.module';
 
 
 
@@ -13,7 +14,8 @@ import { ClientsRoutingModule } from './clients-routing.module';
   ],
   imports: [
     CommonModule,
-    ClientsRoutingModule
+    ClientsRoutingModule,
+    ComponentsModule
   ]
 })
 export class ClientsModule { }

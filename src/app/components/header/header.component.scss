@@ -32,15 +32,17 @@
 
   &__logo {
     font-weight: $font-weight-heavy;
-    font-size: $font-size-lg;
     user-select: none;
 
     &--accent {
       color: $color-accent;
     }
+    &__text {
+      margin: 0;
 
-    @include tablet {
-      font-size: $font-size-xl;
+      @include tablet {
+        font-size: 5rem;
+      }
     }
   }
 
@@ -138,8 +140,8 @@
     }
 
     &__avatar {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid $white;

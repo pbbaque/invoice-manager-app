@@ -1,40 +1,48 @@
-<aside class="sidebar">
+<button class="hamburger" (click)="toggleSidebar()">☰</button>
+<div class="overlay" *ngIf="sidebarOpen" (click)="toggleSidebar()"></div>
+<aside class="sidebar" [class.sidebar--open]="sidebarOpen">
   <nav class="sidebar__nav">
     <ul class="sidebar__nav-list">
       <li class="sidebar__nav-item">
-        <a href="#" class="sidebar__nav-link sidebar__nav-link--active">
+        <a routerLink="/dashboard" routerLinkActive="sidebar__nav-link--active" class="sidebar__nav-link" (click)="closeSidebar()">
           <span class="sidebar__icon sidebar__icon--dashboard"></span>
           Dashboard
         </a>
       </li>
       <li class="sidebar__nav-item">
-        <a href="#" class="sidebar__nav-link">
+        <a routerLink="/users" routerLinkActive="sidebar__nav-link--active" class="sidebar__nav-link" (click)="closeSidebar()">
           <span class="sidebar__icon sidebar__icon--users"></span>
           Usuarios
         </a>
       </li>
       <li class="sidebar__nav-item">
-        <a href="#" class="sidebar__nav-link">
-          <span class="sidebar__icon sidebar__icon--invoices"></span>
-          Facturas
-        </a>
-      </li>
-      <li class="sidebar__nav-item">
-        <a href="#" class="sidebar__nav-link">
+        <a routerLink="/companies" routerLinkActive="sidebar__nav-link--active" class="sidebar__nav-link" (click)="closeSidebar()">
           <span class="sidebar__icon sidebar__icon--company"></span>
-          Compañías
+          Empresas
         </a>
       </li>
       <li class="sidebar__nav-item">
-        <a href="#" class="sidebar__nav-link">
+        <a routerLink="/employees" routerLinkActive="sidebar__nav-link--active" class="sidebar__nav-link" (click)="closeSidebar()">
           <span class="sidebar__icon sidebar__icon--employees"></span>
           Empleados
         </a>
       </li>
       <li class="sidebar__nav-item">
-        <a href="#" class="sidebar__nav-link">
+        <a routerLink="/invoices" routerLinkActive="sidebar__nav-link--active" class="sidebar__nav-link" (click)="closeSidebar()">
+          <span class="sidebar__icon sidebar__icon--invoices"></span>
+          Facturas
+        </a>
+      </li>
+      <li class="sidebar__nav-item">
+        <a routerLink="/clients" routerLinkActive="sidebar__nav-link--active" class="sidebar__nav-link" (click)="closeSidebar()">
           <span class="sidebar__icon sidebar__icon--clients"></span>
           Clientes
+        </a>
+      </li>
+      <li class="sidebar__nav-item">
+        <a routerLink="/products" routerLinkActive="sidebar__nav-link--active" class="sidebar__nav-link" (click)="closeSidebar()">
+          <span class="sidebar__icon sidebar__icon--products"></span>
+          Productos
         </a>
       </li>
     </ul>

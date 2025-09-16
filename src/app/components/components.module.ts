@@ -12,6 +12,8 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TableComponent } from './table/table.component';
 import { FooterComponent } from './footer/footer.component';
+import { RouterModule } from '@angular/router';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 
 
@@ -28,10 +30,12 @@ import { FooterComponent } from './footer/footer.component';
     PaginationComponent, 
     SidebarComponent, 
     TableComponent, 
-    FooterComponent
+    FooterComponent, 
+    ConfirmComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     AlertComponent, 
@@ -45,7 +49,8 @@ import { FooterComponent } from './footer/footer.component';
     PaginationComponent, 
     SidebarComponent, 
     TableComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmComponent
   ]
 })
 export class ComponentsModule { }

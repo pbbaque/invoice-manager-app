@@ -1,1 +1,85 @@
-<p>company-list works!</p>
+<div class="page">
+  <div class="page__header">
+    <h2 class="page__name">Listado de Empresas</h2>
+    <p class="page__description">
+      Aquí puedes consultar todas las empresas registradas en el sistema.
+    </p>
+  </div>
+
+  <div class="page__actions">
+    <div class="page__search">
+      <button class="btn btn--primary">Buscar</button>
+      <input
+        type="text"
+        class="search__input"
+        placeholder="Buscar empresa..."
+      />
+    </div>
+    <button class="btn btn--secondary">Añadir Empresa</button>
+  </div>
+
+  <div class="page__content">
+    <div class="list__wrapper">
+      <ul class="list">
+        <li class="list__item">
+          <p class="list__title">Tech Solutions</p>
+          <p class="list__subtitle">B12345678</p>
+          <div class="list__actions">
+            <button class="btn btn--warning">Editar</button>
+            <button class="btn btn--error">Eliminar</button>
+          </div>
+        </li>
+        <li class="list__item">
+          <p class="list__title">Tech Solutions</p>
+          <p class="list__subtitle">B12345678</p>
+          <div class="list__actions">
+            <button class="btn btn--warning">Editar</button>
+            <button class="btn btn--error">Eliminar</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="table__wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>NIF/CIF</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Tech Solutions</td>
+            <td>B12345678</td>
+            <td>+34 666 123 456</td>
+            <td>techsolutions&#64;email.com</td>
+            <td>123 Calle Falsa, Madrid</td>
+            <td class="table__actions">
+              <button class="btn btn--warning">Editar</button>
+              <button class="btn btn--error">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Tech Solutions</td>
+            <td>B12345678</td>
+            <td>+34 666 123 456</td>
+            <td>techsolutions&#64;email.com</td>
+            <td>123 Calle Falsa, Madrid</td>
+            <td class="table__actions">
+              <button class="btn btn--warning">Editar</button>
+              <button class="btn btn--error">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

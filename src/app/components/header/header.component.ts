@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
-import { Event } from '@angular/router';
+import { Event, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +8,28 @@ import { Event } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-
+  
   dropdownOpen: boolean = false;
+  showConfirmLogout: boolean = false;
+
+  constructor( private authService: AuthService, private router: Router) {}
+
 
   toggleMenu() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  logout() {
+  onLogout() {
+    this.showConfirmLogout = true;
+  }
 
+  confirmLogout() {
+    this.showConfirmLogout = false;
+    this.authService.logout();
+    this.router.navigate(['auth/login']);
+  }
+
+  cancelLogout() {
+    this.showConfirmLogout = false;
   }
 }
