@@ -1,5 +1,5 @@
-@use 'variables' as v;
-@use 'mixins' as m;
+@use "variables" as v;
+@use "mixins" as m;
 
 .form {
   display: flex;
@@ -46,6 +46,12 @@
 
   &__submit {
     @include m.button(v.$color-primary, v.$white);
+    margin-top: 2rem;
+    font-size: 1.6rem;
+  }
+
+  &__return {
+    @include m.button(v.$color-error, v.$white);
     margin-top: 2rem;
     font-size: 1.6rem;
   }

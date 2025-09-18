@@ -14,6 +14,7 @@ import { TableComponent } from './table/table.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -35,7 +36,9 @@ import { ConfirmComponent } from './confirm/confirm.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     AlertComponent, 
@@ -50,7 +53,9 @@ import { ConfirmComponent } from './confirm/confirm.component';
     SidebarComponent, 
     TableComponent,
     FooterComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ComponentsModule { }

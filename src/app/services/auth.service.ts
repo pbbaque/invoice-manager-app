@@ -5,6 +5,8 @@ import { environment } from '../../environments/environments';
 import { ApiResponse } from '../models/api-response';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
+import { JwtPayload } from '../models/jwtpayload';
+import {jwtDecode}  from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +17,42 @@ export class AuthService {
   private headers = { 'Content-Type': 'application/json' };
 
   private loggedIn: BehaviorSubject<boolean>;
+  private userRoles: string[] = [];
+  private userEmail: string = '';
+  private userCompanyId: number | null = null;
 
   constructor(private http: HttpClient, private storageService: StorageService) {
     this.loggedIn = new BehaviorSubject<boolean>(this.hasToken());
+    if (this.hasToken())
+      this.decodeToken();
+  }
+
+  login(credentials: { email: string; password: string }): Observable<ApiResponse<User>> {
+    return this.http.post<ApiResponse<User>>(`${this.apiUrl}/auth/login`, credentials, { headers: this.headers }).pipe(
+      tap(
+        response => {
+          const token = response.token;
+          if (token) {
+            this.storageService.saveToken(token);
+            this.storageService.saveUser(response.data);
+            this.decodeToken();
+            this.loggedIn.next(true);
+            console.log('Login successful, token saved:', token);
+          }
+        },
+        error => {
+          console.error('Login error', error);
+        }
+      )
+    );
+  }
+
+  logout(): void {
+    this.storageService.clear();
+    this.userRoles = [];
+    this.userEmail = '';
+    this.userCompanyId = null;
+    this.loggedIn.next(false);
   }
 
   hasToken(): boolean {
@@ -32,47 +67,46 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  login(credentials: { email: string; password: string }): Observable<ApiResponse<User>> {
-    return this.http.post<ApiResponse<User>>(`${this.apiUrl}/auth/login`, credentials, { headers: this.headers }).pipe(
-      tap(
-        response => {
-          const token = response.token;
-          if (token) {
-            this.storageService.saveToken(token);
-            this.storageService.saveUser(response.data);
-            this.loggedIn.next(true);
-            console.log('Login successful, token saved:', token);
-          }
-        },
-        error => {
-          console.error('Login error', error);
-        }
-      )
-    );
-  }
+  private decodeToken(): void {
+    const token = this.storageService.getToken();
+    if (!token)
+      return;
 
-  logout(): void {
-    this.storageService.clear();
-    this.loggedIn.next(false);
-    console.log('User logged out');
-  }
-
-  private checkTokenValidity(): void {
-    const token  = this.storageService.getToken();
-
-    if(token) {
-      try {
-        const payload = JSON.parse(atob(token.split('. ')[1]));
-        const currentTime = Math.floor(Date.now() / 1000);
-        if (payload.exp < currentTime) {
-          console.log('Token expired, logging out');
-          this.logout();
-        }
-      } catch (error) {
-        console.error('Error checking token validity: ', error);
+    try {
+      const payload: JwtPayload = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      if (payload.exp < currentTime) {
         this.logout();
+        return;
       }
+
+      this.userRoles = payload.authorities || [];
+      this.userEmail = payload.sub;
+      this.userCompanyId = payload.companyId || null;
+    } catch (error) {
+      console.error('Error decoding JWT:', error);
+      this.logout();
     }
+  }
+
+  getRoles(): string[] {
+    return this.userRoles;
+  }
+
+  getEmail(): string {
+    return this.userEmail;
+  }
+
+  getCompanyId(): number | null {
+    return this.userCompanyId;
+  }
+
+  hasRole(role: string): boolean {
+    return this.userRoles.includes(role);
+  }
+
+  public checkTokenValidity(): void {
+    this.decodeToken();
   }
 
   forgotPassword(email: string) {

@@ -1,4 +1,5 @@
 import { Address } from "./address";
+import { Company } from "./company";
 
 export interface Client {
     id: number;
@@ -6,5 +7,6 @@ export interface Client {
     lastname: string;
     email: string;
     phone: string;
+    company: Company;
     address: Address;
 }
