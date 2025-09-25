@@ -5,6 +5,7 @@ import { AddressService } from '../../../services/address.service';
 import { Address } from '../../../models/address';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DetailConfig } from '../../../models/detail-config';
 
 @Component({
   selector: 'app-client-list',
@@ -22,6 +23,20 @@ export class ClientListComponent implements OnInit {
   noResults: boolean = false;
   showConfirmDelete: boolean = false;
   clientToDeleteId:number | null = null;
+  selectedClient: Client | null = null;
+  detailVisible: boolean = false;
+
+  clientDetailConfig: DetailConfig = {
+    title: 'Detalle del Cliente',
+    fields: [
+      { key: 'id', label: 'ID' },
+      { key: 'name', label: 'Nombre' },
+      { key: 'lastname', label: 'Apellido' },
+      { key: 'email', label: 'Correo' },
+      { key: 'phone', label: 'Teléfono' },
+      { key: 'company.name', label: 'Compañía' }
+    ]
+  };
 
   constructor(
     private clientService: ClientService, 
@@ -111,6 +126,16 @@ export class ClientListComponent implements OnInit {
     console.error('Error al cargar los clientes:', error);
     this.errorMessage = error?.message || 'Error en la busqueda de clientes. Intentelos de nuevo.';
     this.errorVisible = true;
+  }
+
+  openDetail(client: Client): void {
+    this.selectedClient = { ...client };
+    this.detailVisible = true;
+  }
+
+  closeDetail(): void {
+    this.selectedClient = null;
+    this.detailVisible = false;
   }
 
   formatAddress(address: Address): string {

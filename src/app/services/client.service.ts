@@ -10,7 +10,7 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 })
 export class ClientService {
 
-  private apiUrl: string = environment.apiUrl +'/clients';
+  private apiUrl: string = environment.apiUrl + '/clients';
   private headers = { 'Content-Type': 'application/json' };
   
   constructor( private http: HttpClient ) { }

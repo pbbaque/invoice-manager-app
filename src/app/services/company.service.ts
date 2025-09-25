@@ -10,13 +10,13 @@ import { ApiResponse } from '../models/api-response';
 })
 export class CompanyService {
 
-  private apiUrl: string = environment.apiUrl;
+  private apiUrl: string = environment.apiUrl + '/companies';
   private headers = { 'Content-Type': 'application/json' };
 
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Company[]> {
-    return this.http.get<ApiResponse<Company[]>>(`${this.apiUrl}/companies`, { headers: this.headers }).pipe(
+    return this.http.get<ApiResponse<Company[]>>(`${this.apiUrl}`, { headers: this.headers }).pipe(
       map(response => {
         if (!response.success)
           throw new Error(response.message || 'Error desconocido al obtener las empresas');
@@ -30,6 +30,6 @@ export class CompanyService {
   }
 
   registerCompany(company: Omit<Company, 'id'>): Observable<Company> {
-    return this.http.post<Company>(`${this.apiUrl}/companies`, company, { headers: this.headers });
+    return this.http.post<Company>(`${this.apiUrl}`, company, { headers: this.headers });
   }
 }

@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Company } from '../../../models/company';
 import { AuthService } from '../../../services/auth.service';
 import { CompanyService } from '../../../services/company.service';
+import { AddressService } from '../../../services/address.service';
 
 @Component({
   selector: 'app-client-form',
@@ -28,7 +29,8 @@ export class ClientFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private addressService: AddressService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class ClientFormComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       company: this.fb.group({
-        id:[null, this.isAdmin ? Validators.required : null],
+        id: [null, this.isAdmin ? Validators.required : null],
       }),
       address: this.fb.group({
         street: ['', Validators.required],
@@ -131,11 +133,11 @@ export class ClientFormComponent implements OnInit {
     return this.clientForm.get('phone');
   }
 
-  get address() { 
-    return this.clientForm.get('address'); 
+  get address() {
+    return this.clientForm.get('address');
   }
 
-  get company() { 
-    return this.clientForm.get('company'); 
+  get company() {
+    return this.clientForm.get('company');
   }
 }

@@ -32,7 +32,7 @@
         <li *ngIf="filteredClients.length === 0" class="no-results">
           No se encontraron clientes.
         </li>
-        <li class="list__item" *ngFor="let client of filteredClients">
+        <li class="list__item" *ngFor="let client of filteredClients" (click)="openDetail(client)">
           <p class="list__title">
             {{ client.id }} - {{ client.name }} {{ client.lastname }}
           </p>
@@ -61,7 +61,7 @@
           <tr *ngIf="filteredClients.length === 0">
             <td colspan="6" class="no-results">No se encontraron clientes.</td>
           </tr>
-          <tr *ngFor="let client of filteredClients">
+          <tr *ngFor="let client of filteredClients" (click)="openDetail(client)">
             <td>{{ client.id }}</td>
             <td>{{ client.name }} {{ client.lastname }}</td>
             <td>{{ client.email }}</td>
@@ -85,3 +85,11 @@
   (confirmed)="confirmDelete()"
   (cancelled)="cancelDelete()">
 </app-confirm>
+
+
+<app-entity-detail 
+  [entity]="selectedClient" 
+  [config]="clientDetailConfig" 
+  [visible]="detailVisible"
+  (closed)="closeDetail()">
+</app-entity-detail>

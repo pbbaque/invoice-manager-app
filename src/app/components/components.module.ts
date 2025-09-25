@@ -15,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EntityDetailComponent } from './entity-detail/entity-detail.component';
 
 
 
@@ -32,7 +33,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SidebarComponent, 
     TableComponent, 
     FooterComponent, 
-    ConfirmComponent
+    ConfirmComponent, 
+    EntityDetailComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     ConfirmComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EntityDetailComponent
   ]
 })
 export class ComponentsModule { }
