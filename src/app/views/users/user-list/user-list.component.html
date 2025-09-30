@@ -1,5 +1,5 @@
 <div class="page">
-    <app-alert
+  <app-alert
     [message]="errorMessage"
     type="error"
     [visible]="errorVisible"
@@ -23,7 +23,9 @@
         (ngModelChange)="searchUsers()"
       />
     </div>
-    <button class="btn btn--secondary" (click)="goToCreate()">Añadir Usuario</button>
+    <button class="btn btn--secondary" (click)="goToCreate()">
+      Añadir Usuario
+    </button>
   </div>
 
   <div class="page__content">
@@ -32,12 +34,26 @@
         <li *ngIf="filteredUsers.length === 0" class="no-results">
           No se encontraron usuarios.
         </li>
-        <li class="list__item" *ngFor="let user of filteredUsers" (click)="openDetail(user)">
+        <li
+          class="list__item"
+          *ngFor="let user of filteredUsers"
+          (click)="openDetail(user)"
+        >
           <p class="list__title">{{ user.id }} {{ user.username }}</p>
           <p class="list__subtitle">{{ user.email }}</p>
           <div class="list__actions">
-            <button class="btn btn--warning" (click)="goToEdit(user.id)">Editar</button>
-            <button class="btn btn--error" (click)="deleteUser(user)">Eliminar</button>
+            <button
+              class="btn btn--warning"
+              (click)="goToEdit(user.id); $event.stopPropagation()"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn--error"
+              (click)="deleteUser(user); $event.stopPropagation()"
+            >
+              Eliminar
+            </button>
           </div>
         </li>
       </ul>
@@ -52,7 +68,7 @@
             <th>Email</th>
             <th>Empleado</th>
             <th>Empresa</th>
-            <th>Acciones</th>
+            <th class="table__actions-cell">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -63,11 +79,26 @@
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.employee?.name || "-" }} {{ user.employee?.lastname || "-" }}</td>
+            <td>
+              {{ user.employee?.name || "-" }}
+              {{ user.employee?.lastname || "-" }}
+            </td>
             <td>{{ user.employee?.company?.name || "-" }}</td>
-            <td class="table__actions">
-              <button class="btn btn--warning" (click)="goToEdit(user.id)">Editar</button>
-              <button class="btn btn--error" (click)="deleteUser(user)">Eliminar</button>
+            <td class="table__actions-cell">
+              <div class="table__actions">
+                <button
+                  class="btn btn--warning"
+                  (click)="goToEdit(user.id); $event.stopPropagation()"
+                >
+                  Editar
+                </button>
+                <button
+                  class="btn btn--error"
+                  (click)="deleteUser(user); $event.stopPropagation()"
+                >
+                  Eliminar
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -81,13 +112,14 @@
   [message]="confirmMessage"
   type="warning"
   (confirmed)="confirmDelete()"
-  (cancelled)="cancelDelete()">
+  (cancelled)="cancelDelete()"
+>
 </app-confirm>
 
-
-<app-entity-detail 
-  [entity]="selectedUser" 
-  [config]="userDetailConfig" 
+<app-entity-detail
+  [entity]="selectedUser"
+  [config]="userDetailConfig"
   [visible]="detailVisible"
-  (closed)="closeDetail()">
+  (closed)="closeDetail()"
+>
 </app-entity-detail>

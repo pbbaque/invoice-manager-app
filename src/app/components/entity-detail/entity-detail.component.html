@@ -1,4 +1,4 @@
-<div class="detail__overlay" *ngIf="visible" (click)="visible = false">
+<div class="detail__overlay" *ngIf="visible" (click)="onCloseButtonClick()">
   <div class="detail__card" (click)="$event.stopPropagation()">
     <div class="detail__header">
       <h2 class="detail__title">{{ config.title }}</h2>

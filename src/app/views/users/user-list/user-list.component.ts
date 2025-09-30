@@ -14,15 +14,25 @@ export class UserListComponent implements OnInit {
 
   users: User[] = [];
   filteredUsers: User[] = [];
-  errorMessage: string = '';
+  paginatedUsers: User[] = [];
   searchTerm: string = '';
-  confirmMessage: string = '';
-  errorVisible: boolean = false;
-  noResults: boolean = false;
+
+  //Paginacion
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalPages: number = 1;
+
+  // Confirmacion y detalle
   showConfirmDelete: boolean = false;
+  confirmMessage: string = '';
   userToDeleteId: number | null = null;
   selectedUser: User | null = null;
   detailVisible: boolean = false;
+
+  // Alertas
+  errorMessage: string = '';
+  errorVisible: boolean = false;
+  noResults: boolean = false;
 
   userDetailConfig: DetailConfig = {
     title: 'Detalle del Usuario',
@@ -89,7 +99,7 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/users/create']);
   }
 
-  goToEdit(userId: number): void {
+  goToEdit(userId: number | null): void {
     this.router.navigate([`/users/edit/${userId}`]);
   }
 

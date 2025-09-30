@@ -3,7 +3,7 @@ import { Employee } from "./employee";
 import { Role } from "./role";
 
 export interface User {
-    id: number;
+    id: number | null;
     username: string;
     password?: string;
     email: string;

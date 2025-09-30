@@ -85,8 +85,7 @@ export class UserService {
   }
 
   create(user: User): Observable<User> {
-    const companyId = user.employee?.company?.id || 0;
-    return this.http.post<ApiResponse<User>>(`${this.apiUrl}/${companyId}`, user, { headers: this.headers }).pipe(
+    return this.http.post<ApiResponse<User>>(`${this.apiUrl}`, user, { headers: this.headers }).pipe(
       map(res => {
         if (!res.success || !res.data) throw new Error(res.message || 'Error desconocido al crear el usuario');
         return res.data;
@@ -125,7 +124,7 @@ export class UserService {
   }
 
   update(user: User): Observable<User> {
-    const url = user.employee?.company?.id ? `${this.apiUrl}/${user.employee.company.id}` : `${this.apiUrl}`;
+    const url = user.employee?.company?.id ? `${this.apiUrl}` : `${this.apiUrl}`;
     return this.http.put<ApiResponse<User>>(url, user, { headers: this.headers }).pipe(
       map(res => {
         if (!res.success || !res.data) throw new Error(res.message || 'Error desconocido al actualizar el usuario');

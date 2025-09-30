@@ -99,13 +99,14 @@
               type="text"
               class="form__input"
               [value]="
-                userForm.get('employee')?.value
+                userForm.get('employee')?.value?.name &&
+                userForm.get('employee')?.value?.lastname
                   ? userForm.get('employee')?.value.name +
                     ' ' +
                     userForm.get('employee')?.value.lastname +
-                    ' (' +
-                    userForm.get('employee')?.value.email +
-                    ')'
+                    (userForm.get('employee')?.value.email
+                      ? ' (' + userForm.get('employee')?.value.email + ')'
+                      : '')
                   : 'Sin empleado'
               "
               disabled

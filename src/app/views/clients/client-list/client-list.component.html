@@ -23,7 +23,9 @@
         (ngModelChange)="searchClients()"
       />
     </div>
-    <button class="btn btn--secondary" (click)="goToCreate()">Añadir Cliente</button>
+    <button class="btn btn--secondary" (click)="goToCreate()">
+      Añadir Cliente
+    </button>
   </div>
 
   <div class="page__content">
@@ -32,14 +34,28 @@
         <li *ngIf="filteredClients.length === 0" class="no-results">
           No se encontraron clientes.
         </li>
-        <li class="list__item" *ngFor="let client of filteredClients" (click)="openDetail(client)">
+        <li
+          class="list__item"
+          *ngFor="let client of filteredClients"
+          (click)="openDetail(client)"
+        >
           <p class="list__title">
             {{ client.id }} - {{ client.name }} {{ client.lastname }}
           </p>
           <p class="list__subtitle">{{ client.email }}</p>
           <div class="list__actions">
-            <button class="btn btn--warning" (click)="goToEdit(client.id)">Editar</button>
-            <button class="btn btn--error" (click)="deleteClient(client)">Eliminar</button>
+            <button
+              class="btn btn--warning"
+              (click)="goToEdit(client.id); $event.stopPropagation()"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn--error"
+              (click)="deleteClient(client); $event.stopPropagation()"
+            >
+              Eliminar
+            </button>
           </div>
         </li>
       </ul>
@@ -54,22 +70,37 @@
             <th>Email</th>
             <th>Teléfono</th>
             <th>Dirección</th>
-            <th>Acciones</th>
+            <th class="table__actions-cell">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngIf="filteredClients.length === 0">
             <td colspan="6" class="no-results">No se encontraron clientes.</td>
           </tr>
-          <tr *ngFor="let client of filteredClients" (click)="openDetail(client)">
+          <tr
+            *ngFor="let client of filteredClients"
+            (click)="openDetail(client)"
+          >
             <td>{{ client.id }}</td>
             <td>{{ client.name }} {{ client.lastname }}</td>
             <td>{{ client.email }}</td>
             <td>{{ formatPhone(client.address.country, client.phone) }}</td>
             <td>{{ formatAddress(client.address) }}</td>
-            <td class="table__actions">
-              <button class="btn btn--warning" (click)="goToEdit(client.id)">Editar</button>
-              <button class="btn btn--error" (click)="deleteClient(client)">Eliminar</button>
+            <td class="table__actions-cell">
+              <div class="table__actions">
+                <button
+                  class="btn btn--warning"
+                  (click)="goToEdit(client.id); $event.stopPropagation()"
+                >
+                  Editar
+                </button>
+                <button
+                  class="btn btn--error"
+                  (click)="deleteClient(client); $event.stopPropagation()"
+                >
+                  Eliminar
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -83,13 +114,14 @@
   [message]="confirmMessage"
   type="warning"
   (confirmed)="confirmDelete()"
-  (cancelled)="cancelDelete()">
+  (cancelled)="cancelDelete()"
+>
 </app-confirm>
 
-
-<app-entity-detail 
-  [entity]="selectedClient" 
-  [config]="clientDetailConfig" 
+<app-entity-detail
+  [entity]="selectedClient"
+  [config]="clientDetailConfig"
   [visible]="detailVisible"
-  (closed)="closeDetail()">
+  (closed)="closeDetail()"
+>
 </app-entity-detail>

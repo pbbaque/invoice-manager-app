@@ -64,8 +64,8 @@ export class UserFormComponent implements OnInit {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', this.isEditMode ? [] : [Validators.required]],
-      repeat: ['', this.isEditMode ? [] : [Validators.required]],
+      password: [''],
+      repeat: [''],
       company: this.fb.group({
         id: [null],
         name: ['']
@@ -76,7 +76,7 @@ export class UserFormComponent implements OnInit {
         lastname: [''],
         email: ['']
       })
-    });
+    }, { validators: this.passwordsMatchValidator });
 
     this.loadRoles();
 
@@ -88,6 +88,13 @@ export class UserFormComponent implements OnInit {
         this.loadUser(this.userId);
       }
     });
+
+    if (!this.isEditMode) {
+      this.password?.setValidators([Validators.required]);
+      this.repeat?.setValidators([Validators.required]);
+      this.password?.updateValueAndValidity();
+      this.repeat?.updateValueAndValidity();
+    }
   }
 
   getRoleLabel(roleName: string): string {
@@ -104,7 +111,6 @@ export class UserFormComponent implements OnInit {
 
         this.roles = user.roles || [];
         this.rolesIds = this.roles.map(r => r.id);
-        console.log(user)
         if (user.employee && user.employee.company) {
           const company = user.employee.company;
           const employee = user.employee;
@@ -119,7 +125,6 @@ export class UserFormComponent implements OnInit {
             employee: null
           });
         }
-        console.log(this.userForm.value)
       },
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.message || 'Error al cargar el usuario';
@@ -170,13 +175,25 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Form valid:', this.userForm.valid, this.userForm.value);
     if (this.userForm.invalid) return;
+    if (this.userForm.errors && this.userForm.errors['passwordsMismatch']) {
+      this.errorMessage = 'La contraseña y la repetición no coinciden';
+      this.errorVisible = true;
+      return;
+    }
 
-    const userData: User = this.userForm.value;
-
-    userData.roles = this.availableRoles.filter(r => this.rolesIds.includes(r.id));
+    const userData: User = {
+      id: this.isEditMode && this.userId ? this.userId : null,
+      username: this.userForm.value.username,
+      email: this.userForm.value.email,
+      password: this.userForm.value.password,
+      roles: this.availableRoles.filter(r => this.rolesIds.includes(r.id))
+    };
 
     if (this.isEditMode && this.userId) {
+      console.log(this.userForm.value)
+
       userData.id = this.userId;
       this.userService.update(userData).subscribe({
         next: () => this.goBack(),
@@ -204,9 +221,20 @@ export class UserFormComponent implements OnInit {
     return r1 && r2 ? r1.id === r2.id : r1 === r2;
   }
 
+  passwordsMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const password = group.get('password')?.value;
+    const repeat = group.get('repeat')?.value;
+
+    if (password && repeat && password !== repeat) {
+      return { passwordsMismatch: true };
+    }
+    return null;
+  }
+
   get username() { return this.userForm.get('username'); }
   get email() { return this.userForm.get('email'); }
   get password() { return this.userForm.get('password'); }
+  get repeat() { return this.userForm.get('password'); }
   get company() { return this.userForm.get('company'); }
   get employee() { return this.userForm.get('employee'); }
 }
