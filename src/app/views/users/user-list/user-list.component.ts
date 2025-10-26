@@ -17,9 +17,9 @@ export class UserListComponent implements OnInit {
   paginatedUsers: User[] = [];
   searchTerm: string = '';
 
-  //Paginacion
+  // Paginacion
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = window.innerWidth >= 2000 ? 20 : 5;
   totalPages: number = 1;
 
   // Confirmacion y detalle
@@ -61,6 +61,8 @@ export class UserListComponent implements OnInit {
         this.users = users;
         this.filteredUsers = [...users];
         this.noResults = false;
+        this.currentPage = 1;
+        this.updatePagination();
       },
       error: (error) => this.handleError(error)
     });
@@ -72,6 +74,8 @@ export class UserListComponent implements OnInit {
     if (!term) {
       this.filteredUsers = [...this.users];
       this.noResults = false;
+      this.currentPage = 1;
+      this.updatePagination();
       return;
     }
 
@@ -84,15 +88,37 @@ export class UserListComponent implements OnInit {
         user.employee?.company?.name.toLowerCase().includes(term)
       );
       this.noResults = this.filteredUsers.length === 0;
+      this.currentPage = 1;
+      this.updatePagination();
     } else {
       this.userService.searchUsers(term).subscribe({
         next: (users) => {
-          this.filteredUsers = users
+          this.filteredUsers = users;
           this.noResults = users.length === 0;
+          this.currentPage = 1;
+          this.updatePagination();
         },
         error: (error) => this.handleError(error)
       });
     }
+  }
+
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updatePagination();
+  }
+
+  onItemsPerPageChange(size: number): void {
+    this.itemsPerPage = size;
+    this.currentPage = 1;
+    this.updatePagination();
   }
 
   goToCreate(): void {
@@ -131,7 +157,7 @@ export class UserListComponent implements OnInit {
 
   private handleError(error: HttpErrorResponse): void {
     console.error('Error al cargar los usuarios:', error);
-    this.errorMessage = error?.message || 'Error en la busqueda de usuarios. Intentelos de nuevo.';
+    this.errorMessage = error?.message || 'Error en la busqueda de usuarios. Intentelo de nuevo.';
     this.errorVisible = true;
   }
 

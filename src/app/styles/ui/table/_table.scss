@@ -34,13 +34,16 @@
   tbody {
     @include m.tablet {
       width: 100%;
-      max-height: calc(47vh - 60px);
+      max-height: calc(47vh - 55px);
       overflow-y: scroll;
       overflow-x: hidden;
       &::-webkit-scrollbar {
         width: 0;
         height: 0;
       }
+    }
+    @include m.xl_desktop {
+      max-height: calc(70vh - 90px);
     }
   }
 
@@ -102,5 +105,11 @@
       flex: 0 0 auto;
       white-space: nowrap;
     }
+  }
+
+  &__address-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

@@ -15,16 +15,26 @@ import { DetailConfig } from '../../../models/detail-config';
 export class ClientListComponent implements OnInit {
 
   clients: Client[] = [];
-  filteredClients: Client [] = [];
-  errorMessage: string = '';
+  filteredClients: Client[] = [];
+  paginatedClients: Client[] = [];
   searchTerm: string = '';
-  confirmMessage:string = '';
-  errorVisible: boolean = false;
-  noResults: boolean = false;
+
+  // Paginacion
+  currentPage: number = 1;
+  itemsPerPage: number = window.innerWidth >= 2000 ? 20 : 5;
+  totalPages: number = 1;
+
+  // Confirmacion y detalle
   showConfirmDelete: boolean = false;
-  clientToDeleteId:number | null = null;
+  confirmMessage: string = '';
+  clientToDeleteId: number | null = null;
   selectedClient: Client | null = null;
   detailVisible: boolean = false;
+
+  // Alerts
+  errorVisible: boolean = false;
+  noResults: boolean = false;
+  errorMessage: string = '';
 
   clientDetailConfig: DetailConfig = {
     title: 'Detalle del Cliente',
@@ -34,12 +44,13 @@ export class ClientListComponent implements OnInit {
       { key: 'lastname', label: 'Apellido' },
       { key: 'email', label: 'Correo' },
       { key: 'phone', label: 'Teléfono' },
-      { key: 'company.name', label: 'Compañía' }
+      { key: 'company.name', label: 'Compañía' },
+      { key: 'address', label: 'Dirección' }
     ]
   };
 
   constructor(
-    private clientService: ClientService, 
+    private clientService: ClientService,
     private addressService: AddressService,
     private router: Router
   ) { }
@@ -54,6 +65,8 @@ export class ClientListComponent implements OnInit {
         this.clients = clients;
         this.filteredClients = [...clients];
         this.noResults = false;
+        this.currentPage = 1;
+        this.updatePagination();
       },
       error: (error) => this.handleError(error)
     });
@@ -62,14 +75,16 @@ export class ClientListComponent implements OnInit {
   searchClients(): void {
     const term = this.searchTerm.toLowerCase();
 
-    if(!term) {
+    if (!term) {
       this.filteredClients = [...this.clients];
       this.noResults = false;
+      this.currentPage = 1;
+      this.updatePagination();
       return;
     }
 
-    if(this.clients.length <=10) { 
-      this.filteredClients = this.clients.filter(client => 
+    if (this.clients.length <= 10) {
+      this.filteredClients = this.clients.filter(client =>
         client.name.toLowerCase().includes(term) ||
         client.lastname.toLowerCase().includes(term) ||
         client.email.toLowerCase().includes(term) ||
@@ -77,16 +92,39 @@ export class ClientListComponent implements OnInit {
         this.formatAddress(client.address).toLowerCase().includes(term)
       );
       this.noResults = this.filteredClients.length === 0;
+      this.currentPage = 1;
+      this.updatePagination();
     } else {
       this.clientService.searchClients(term).subscribe({
         next: (clients) => {
           this.filteredClients = clients
           this.noResults = clients.length === 0;
+          this.currentPage = 1;
+          this.updatePagination();
         },
         error: (error) => this.handleError(error)
       });
     }
   }
+
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filteredClients.length / this.itemsPerPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedClients = this.filteredClients.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updatePagination();
+  }
+
+  onItemsPerPageChange(size: number): void {
+    this.itemsPerPage = size;
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
 
   goToCreate(): void {
     this.router.navigate(['/clients/create']);
@@ -103,7 +141,7 @@ export class ClientListComponent implements OnInit {
   }
 
   confirmDelete(): void {
-    if(this.clientToDeleteId !== null) {
+    if (this.clientToDeleteId !== null) {
       this.clientService.delete(this.clientToDeleteId).subscribe({
         next: () => this.loadClients(),
         error: (error) => this.handleError(error),
@@ -122,7 +160,7 @@ export class ClientListComponent implements OnInit {
     this.confirmMessage = '';
   }
 
-  private handleError(error:HttpErrorResponse): void {
+  private handleError(error: HttpErrorResponse): void {
     console.error('Error al cargar los clientes:', error);
     this.errorMessage = error?.message || 'Error en la busqueda de clientes. Intentelos de nuevo.';
     this.errorVisible = true;

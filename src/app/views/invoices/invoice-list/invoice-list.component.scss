@@ -3,6 +3,10 @@
 .page {
   @include container;
 
+  @include xl_desktop {
+    @include container-lg;
+  }
+
   &__header {
     margin-bottom: 2rem;
   }

@@ -3,6 +3,10 @@
 .page {
   @include container;
 
+  @include xl_desktop {
+    @include container-lg;
+  }
+
   &__header {
     margin-bottom: 2rem;
   }
@@ -67,12 +71,17 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+  }
+}
 
-    .list__wrapper {
-      @include shadow;
-      max-height: 47vh;
-      overflow-y: auto;
-    }
+.list__wrapper {
+  display: block;
+  @include shadow;
+  max-height: 47vh;
+  overflow-y: auto;
+
+  @include tablet {
+    display: none;
   }
 }
 
@@ -80,7 +89,8 @@
   display: none;
 
   @include tablet {
-    display: block;
+    display: flex;
+    flex-direction: column;
     @include shadow;
     border-radius: 0.5rem;
     overflow: hidden;

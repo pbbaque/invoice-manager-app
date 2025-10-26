@@ -72,7 +72,7 @@ export class UserService {
 
   searchUsersByCompany(term: string, companyId: number): Observable<User[]> {
     const params = new HttpParams().set('term', term);
-    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/search/all/company/${companyId}`, { params }).pipe(
+    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/search/company/${companyId}`, { params }).pipe(
       map(res => {
         if (!res.success) throw new Error(res.message || 'Error desconocido al buscar usuarios por empresa');
         return res.data || [];

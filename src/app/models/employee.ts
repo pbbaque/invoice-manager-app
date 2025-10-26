@@ -10,6 +10,6 @@ export interface Employee {
     position: string;
     salary: number;
     hireDate: Date;
-    user: User;
+    user?: User;
     company: Company;
 }

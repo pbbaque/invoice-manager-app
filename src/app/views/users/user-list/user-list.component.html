@@ -30,13 +30,23 @@
 
   <div class="page__content">
     <div class="list__wrapper">
+      <app-pagination
+        *ngIf="filteredUsers.length > 0"
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="filteredUsers.length"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)"
+      ></app-pagination>
+
       <ul class="list">
-        <li *ngIf="filteredUsers.length === 0" class="no-results">
+        <li *ngIf="paginatedUsers.length === 0" class="no-results">
           No se encontraron usuarios.
         </li>
         <li
           class="list__item"
-          *ngFor="let user of filteredUsers"
+          *ngFor="let user of paginatedUsers"
           (click)="openDetail(user)"
         >
           <p class="list__title">{{ user.id }} {{ user.username }}</p>
@@ -72,10 +82,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="filteredUsers.length === 0">
+          <tr *ngIf="paginatedUsers.length === 0">
             <td colspan="6" class="no-results">No se encontraron usuarios.</td>
           </tr>
-          <tr *ngFor="let user of filteredUsers" (click)="openDetail(user)">
+          <tr *ngFor="let user of paginatedUsers" (click)="openDetail(user)">
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
@@ -103,6 +113,16 @@
           </tr>
         </tbody>
       </table>
+      
+      <app-pagination
+        *ngIf="filteredUsers.length > 0"
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="filteredUsers.length"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)"
+      ></app-pagination>
     </div>
   </div>
 </div>

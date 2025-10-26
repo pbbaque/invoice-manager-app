@@ -3,6 +3,10 @@
 .page {
   @include container;
 
+  @include xl_desktop {
+    @include container-lg;
+  }
+
   &__header {
     margin-bottom: 2rem;
   }
@@ -41,25 +45,22 @@
   }
 }
 
-
 .form__group--row {
   &.roles-row {
     display: flex;
     flex-wrap: wrap;
-    width: auto; 
+    width: auto;
   }
 
   &.form__field-role {
     justify-content: space-between;
   }
-
-  
 }
 
 .role-option {
   display: flex;
   align-items: center;
-  gap: 0.5rem; 
+  gap: 0.5rem;
   cursor: pointer;
 
   input[type="checkbox"] {

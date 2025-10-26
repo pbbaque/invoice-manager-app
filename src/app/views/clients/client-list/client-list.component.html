@@ -30,13 +30,22 @@
 
   <div class="page__content">
     <div class="list__wrapper">
+      <app-pagination
+        *ngIf="paginatedClients.length > 0"
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="filteredClients.length"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)"
+      ></app-pagination>
       <ul class="list">
-        <li *ngIf="filteredClients.length === 0" class="no-results">
+        <li *ngIf="paginatedClients.length === 0" class="no-results">
           No se encontraron clientes.
         </li>
         <li
           class="list__item"
-          *ngFor="let client of filteredClients"
+          *ngFor="let client of paginatedClients"
           (click)="openDetail(client)"
         >
           <p class="list__title">
@@ -74,18 +83,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="filteredClients.length === 0">
+          <tr *ngIf="paginatedClients.length === 0">
             <td colspan="6" class="no-results">No se encontraron clientes.</td>
           </tr>
           <tr
-            *ngFor="let client of filteredClients"
+            *ngFor="let client of paginatedClients"
             (click)="openDetail(client)"
           >
             <td>{{ client.id }}</td>
             <td>{{ client.name }} {{ client.lastname }}</td>
             <td>{{ client.email }}</td>
             <td>{{ formatPhone(client.address.country, client.phone) }}</td>
-            <td>{{ formatAddress(client.address) }}</td>
+            <td
+              class="table__address-cell"
+              [title]="formatAddress(client.address)"
+            >
+              {{ formatAddress(client.address) }}
+            </td>
             <td class="table__actions-cell">
               <div class="table__actions">
                 <button
@@ -105,6 +119,15 @@
           </tr>
         </tbody>
       </table>
+      <app-pagination
+        *ngIf="filteredClients.length > 0"
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="filteredClients.length"
+        (pageChange)="onPageChange($event)"
+        (itemsPerPageChange)="onItemsPerPageChange($event)"
+      ></app-pagination>
     </div>
   </div>
 </div>

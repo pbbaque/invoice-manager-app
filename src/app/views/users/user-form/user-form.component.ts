@@ -55,11 +55,11 @@ export class UserFormComponent implements OnInit {
   ngOnInit(): void {
     this.isAdmin =
       this.authService.hasRole('ROLE_ADMIN') ||
-      this.authService.hasRole('ROLE_SUPERADMIN');
+      this.authService.hasRole('ROLE_SUPER_ADMIN');
 
     this.isCompanyRole =
       this.authService.hasRole('ROLE_COMPANY_ADMIN') ||
-      this.authService.hasRole('ROLE_COMPANY_SUPERADMIN');
+      this.authService.hasRole('ROLE_COMPANY_SUPER_ADMIN');
 
     this.userForm = this.fb.group({
       username: ['', Validators.required],

@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PaginationComponent {
   @Input() currentPage: number = 1;
   @Input() totalPages: number = 1;
-  @Input() itemsPerPage: number = 10;
+  @Input() itemsPerPage: number =  window.innerWidth >= 1200 ? 10 : 5;
   @Input() totalItems: number = 0;
   
   @Output() pageChange = new EventEmitter<number>();
@@ -50,11 +50,11 @@ export class PaginationComponent {
       }
     } else {
       if (this.currentPage <= 3) {
-        pages.push(1, 2, 3, 4, -1, this.totalPages);
+        pages.push(1, 2, 3, -1, this.totalPages);
       } else if (this.currentPage >= this.totalPages - 2) {
-        pages.push(1, -1, this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages);
+        pages.push(1, -1, this.totalPages - 2, this.totalPages - 1, this.totalPages);
       } else {
-        pages.push(1, -1, this.currentPage - 1, this.currentPage, this.currentPage + 1, -1, this.totalPages);
+        pages.push(1, -1, this.currentPage, -1, this.totalPages);
       }
     }
 

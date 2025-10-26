@@ -8,19 +8,19 @@
   </app-alert>
   <div class="page__header">
     <h2 class="page__name">
-      {{ isEditMode ? "Editar Cliente" : "Nuevo Cliente" }}
+      {{ isEditMode ? "Editar Empresa" : "Nueva Empresa" }}
     </h2>
     <p class="page__description">
       {{
         isEditMode
-          ? "Aquí puedes modificar los datos del cliente."
-          : "Aquí puedes registrar un nuevo cliente en el sistema."
+          ? "Aquí puedes modificar los datos de la empresa."
+          : "Aquí puedes registrar una nueva empresa en el sistema."
       }}
     </p>
   </div>
 
   <div class="page__content">
-    <form class="form" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
       <div class="form__content">
         <div class="form__group--row">
           <div class="form__field">
@@ -28,7 +28,7 @@
             <input
               type="text"
               class="form__input"
-              placeholder="Tu Nombre"
+              placeholder="Nombre de la Empresa"
               id="name"
               formControlName="name"
             />
@@ -43,23 +43,23 @@
           </div>
 
           <div class="form__field">
-            <label for="lastname" class="form__label">Apellido</label>
+            <label for="fiscalNumber" class="form__label">NIF/CIF</label>
             <input
               type="text"
               class="form__input"
-              placeholder="Tu Apellido"
-              id="lastname"
-              formControlName="lastname"
+              placeholder="B12345678 o 12345678Z"
+              id="fiscalNumber"
+              formControlName="fiscalNumber"
             />
             <small
               class="form__error"
-              *ngIf="lastname?.touched && lastname?.invalid"
+              *ngIf="fiscalNumber?.touched && fiscalNumber?.invalid"
             >
-              <span *ngIf="lastname?.errors?.['required']"
-                >El apellido es obligatorio</span
+              <span *ngIf="fiscalNumber?.errors?.['required']"
+                >El NIF/CIF es obligatorio</span
               >
-              <span *ngIf="lastname?.errors?.['lastname']"
-                >Formato de apellido inválido</span
+              <span *ngIf="fiscalNumber?.errors?.['fiscalNumber']"
+                >Formato de NIF/CIF inválido</span
               >
             </small>
           </div>
@@ -104,9 +104,9 @@
           </div>
         </div>
         <div *ngIf="isAdmin" class="form__field" formGroupName="company">
-          <label for="companyId" class="form__label">Compañía</label>
+          <label for="companyId" class="form__label">Empresa</label>
           <select id="companyId" class="form__input" formControlName="id">
-            <option value="" disabled>Seleccione una compañía</option>
+            <option value="" disabled>Seleccione una empresa</option>
             <option *ngFor="let company of companies" [value]="company.id">
               {{ company.name }}
             </option>
@@ -116,7 +116,7 @@
             class="form__error"
           >
             <span *ngIf="company?.get('id')?.errors?.['required']"
-              >La compañía es obligatoria</span
+              >La empresa es obligatoria</span
             >
           </small>
         </div>
@@ -219,7 +219,7 @@
         <input
           type="submit"
           class="form__submit"
-          [value]="isEditMode ? 'Guardar Cambios' : 'Registrar Cliente'"
+          [value]="isEditMode ? 'Guardar Cambios' : 'Registrar Empresa'"
         />
         <input
           type="button"

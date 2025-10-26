@@ -54,6 +54,11 @@
   grid-template-columns: repeat($columns, 1fr);
 }
 
+@mixin container-lg {
+  width: min(95%, 220rem);
+  margin: 0 auto;
+}
+
 @mixin container {
   width: min(95%, 120rem);
   margin: 0 auto;

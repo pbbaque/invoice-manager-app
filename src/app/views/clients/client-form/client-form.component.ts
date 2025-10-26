@@ -34,7 +34,7 @@ export class ClientFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isAdmin = this.authService.hasRole('ROLE_ADMIN') || this.authService.hasRole('ROLE_SUPERADMIN');
+    this.isAdmin = this.authService.hasRole('ROLE_ADMIN') || this.authService.hasRole('ROLE_SUPER_ADMIN');
 
     this.clientForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -43,6 +43,7 @@ export class ClientFormComponent implements OnInit {
       phone: ['', Validators.required],
       company: this.fb.group({
         id: [null, this.isAdmin ? Validators.required : null],
+        name: ['']
       }),
       address: this.fb.group({
         street: ['', Validators.required],

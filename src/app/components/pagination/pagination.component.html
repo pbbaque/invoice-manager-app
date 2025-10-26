@@ -32,7 +32,7 @@
     <label for="pageSize">Por página:</label>
     <select 
       id="pageSize" 
-      [value]="itemsPerPage"
+      [(ngModel)]="itemsPerPage"
       (change)="onItemsPerPageChange($event)">
       <option *ngFor="let size of pageSizeOptions" [value]="size">
         {{ size }}

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DetailConfig } from '../../models/detail-config';
+import { Address } from '../../models/address';
+import { AddressService } from '../../services/address.service';
 
 @Component({
   selector: 'app-entity-detail',
@@ -12,16 +14,32 @@ export class EntityDetailComponent {
   @Input() visible: boolean = false;
   @Output() closed = new EventEmitter<void>();
 
+  constructor(
+    private addressService: AddressService
+  ) { }
+
   getValueByPath(obj: any, path: string): any {
     const value = path.split('.').reduce((acc, part) => acc && acc[part], obj);
-    return value !== undefined && value !== null ? value : "-"; 
+    if (value === undefined || value === null) {
+      return "-";
+    }
+
+    if (path.toLowerCase().includes('address') && typeof value === 'object') {
+      return this.formatAddress(value as Address);
+    }
+
+    return value;
   }
 
-    onCloseButtonClick(): void {
+  onCloseButtonClick(): void {
     this.closed.emit();
   }
 
-    onOverlayClick(): void {
+  onOverlayClick(): void {
     this.closed.emit();
+  }
+
+  formatAddress(address: Address): string {
+    return this.addressService.formatAddress(address);
   }
 }
