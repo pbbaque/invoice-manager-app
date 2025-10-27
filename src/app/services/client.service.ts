@@ -43,6 +43,20 @@ export class ClientService {
     )
   }
 
+  findByCompanyId(companyId: number): Observable<Client[]> {
+    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/company/${companyId}`, {headers: this.headers}).pipe(
+      map(response => {
+        if(!response.success)
+          throw new Error(response.message || 'Error desconocido al obtener los clientes');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error en findById', error);
+        return throwError(() => new Error(error.message || 'Error en la solicitud'));
+      })
+    )
+  }
+
   searchClients(term: string): Observable<Client[]> {
     let params = new HttpParams().set('term', term);
     return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/search/all`, {params}).pipe(

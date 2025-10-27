@@ -82,18 +82,46 @@ export class InvoiceFormComponent implements OnInit {
         this.invoice.details = this.invoice.details || [];
         if (this.invoice.details.length === 0) this.addDetail();
 
-        // Mapear company, client, employee
-        this.invoice.company = this.companies.find(c => c.id === this.invoice.company.id) || {} as Company;
-        this.invoice.client = this.clients.find(cl => cl.id === this.invoice.client.id) || {} as Client;
-        this.invoice.employee = this.employees.find(e => e.id === this.invoice.employee.id) || {} as Employee;
+        // Guardar la compañía seleccionada
+        const selectedCompanyId = this.invoice.company?.id;
 
-        // Mapear productos de cada detalle
-        this.invoice.details = this.invoice.details.map(d => ({
-          ...d,
-          product: this.products.find(p => p.id === d.product.id) || {} as Product
-        }));
+        // Mapear la compañía del listado general
+        this.invoice.company = this.companies.find(c => c.id === selectedCompanyId) || {} as Company;
 
-        this.recalculateTotals();
+        if (selectedCompanyId) {
+          // Cargar clientes, empleados y productos filtrados por la compañía
+          this.clientService.findByCompanyId(selectedCompanyId).subscribe({
+            next: clients => {
+              this.clients = clients;
+              this.invoice.client = clients.find(cl => cl.id === this.invoice.client.id) || {} as Client;
+            },
+            error: err => this.handleError(err)
+          });
+
+          this.employeeService.findByCompanyId(selectedCompanyId).subscribe({
+            next: employees => {
+              this.employees = employees;
+              this.invoice.employee = employees.find(e => e.id === this.invoice.employee.id) || {} as Employee;
+            },
+            error: err => this.handleError(err)
+          });
+
+          this.productService.findByCompanyId(selectedCompanyId).subscribe({
+            next: products => {
+              this.products = products;
+              this.invoice.details = this.invoice.details?.map(d => ({
+                ...d,
+                product: products.find(p => p.id === d.product.id) || {} as Product
+              }));
+              this.recalculateTotals();
+            },
+            error: err => this.handleError(err)
+          });
+        } else {
+          this.clients = [];
+          this.employees = [];
+          this.products = [];
+        }
       },
       error: err => this.handleError(err)
     });
@@ -118,26 +146,63 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   onDetailChange(index: number): void {
-    const d = this.invoice.details?.[index];
-    if (!d) return;
-    d.amount = (d.quantity || 0) * (d.unitPrice || 0);
+    const detail = this.invoice.details?.[index];
+    if (!detail) return;
+    detail.amount = (detail.quantity || 0) * (detail.unitPrice || 0);
+    this.recalculateTotals();
+  }
+
+  onProductChange(index: number): void {
+    const detail = this.invoice.details?.[index];
+    if (!detail || !detail.product) return;
+
+    const selectedProduct = this.products.find(p => p.id === detail.product.id);
+    if (selectedProduct) {
+      detail.unitPrice = selectedProduct.price;
+      detail.quantity = detail.quantity || 1;
+      detail.amount = detail.unitPrice * detail.quantity;
+    }
+
     this.recalculateTotals();
   }
 
   onCompanyChange(): void {
-    // posible comportamiento: filtrar clientes si los tienes asociados por company
+    if (!this.invoice.company || !this.invoice.company.id) {
+      this.clients = [];
+      this.employees = [];
+      this.products = [];
+      this.invoice.client = {} as Client;
+      this.invoice.employee = {} as Employee;
+      return;
+    }
+
+    this.invoice.client = {} as Client;
+    this.invoice.employee = {} as Employee;
+
+    this.clientService.findByCompanyId(this.invoice.company.id).subscribe({
+      next: (clients) => (this.clients = clients),
+      error: (err) => this.handleError(err)
+    });
+
+    this.employeeService.findByCompanyId(this.invoice.company.id).subscribe({
+      next: (employees) => (this.employees = employees),
+      error: (err) => this.handleError(err)
+    });
+
+    this.productService.findByCompanyId(this.invoice.company.id).subscribe({
+      next: (products) => (this.products = products),
+      error: (err) => this.handleError(err)
+    });
   }
 
   private recalculateTotals(): void {
     this.subtotal = (this.invoice.details || []).reduce((s, d) => s + ((d.quantity || 0) * (d.unitPrice || 0)), 0);
-    // ejemplo simple: 21% IVA -> modifica si tu impuesto varía por empresa
     this.tax = this.subtotal * 0.21;
     this.totalInvoice = this.subtotal + this.tax;
     this.invoice.total = this.totalInvoice;
   }
 
   save(): void {
-    // recalcular antes de enviar
     this.recalculateTotals();
     if (this.isEdit) {
       this.invoiceService.update(this.invoice).subscribe({

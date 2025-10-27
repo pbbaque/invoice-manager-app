@@ -1,0 +1,56 @@
+.dashboard__kpis {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .kpi-card {
+    flex: 1;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    .kpi-title {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .kpi-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+}
+
+.dashboard__chart {
+  margin-bottom: 2rem;
+}
+
+.dashboard__lists {
+  display: flex;
+  gap: 2rem;
+
+  .recent-list {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 0.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        text-align: left;
+        font-weight: 600;
+      }
+    }
+  }
+}

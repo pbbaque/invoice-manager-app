@@ -44,6 +44,20 @@ export class EmployeeService {
     )
   }
 
+  findByCompanyId(companyId: number): Observable<Employee[]> {
+    return this.http.get<ApiResponse<Employee[]>>(`${this.apiUrl}/company/${companyId}`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success)
+          throw new Error(response.message || 'Error desconocido al obtener los empleados');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error en findById', error);
+        return throwError(() => new Error(error.message || 'Error en la solicitud'));
+      })
+    )
+  }
+
   searchEmployees(term: string): Observable<Employee[]> {
     let params = new HttpParams().set('term', term);
     return this.http.get<ApiResponse<Employee[]>>(`${this.apiUrl}/search/all`, { params }).pipe(

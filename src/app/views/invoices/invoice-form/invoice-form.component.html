@@ -26,7 +26,7 @@
         <div class="form__group">
           <label>Cliente</label>
           <select name="client" required [(ngModel)]="invoice.client">
-            <option *ngFor="let cl of clients" [ngValue]="cl">{{ cl.name }}</option>
+            <option *ngFor="let cl of clients" [ngValue]="cl">{{ cl.name }} {{ cl.lastname }}</option>
           </select>
         </div>
 
@@ -62,7 +62,7 @@
         <tbody>
           <tr *ngFor="let d of invoice.details; let i = index">
             <td>
-              <select name="product-{{i}}" [(ngModel)]="d.product" (change)="onDetailChange(i)">
+              <select name="product-{{i}}" [(ngModel)]="d.product" (change)="onProductChange(i)">
                 <option [ngValue]="null">-- seleccionar --</option>
                 <option *ngFor="let p of products" [ngValue]="p">{{ p.name }}</option>
               </select>
