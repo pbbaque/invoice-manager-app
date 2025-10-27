@@ -9,9 +9,10 @@ import { Product } from '../../../models/product';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-product-form',
-  templateUrl: './product-form.component.html',
-  styleUrl: './product-form.component.scss'
+    selector: 'app-product-form',
+    templateUrl: './product-form.component.html',
+    styleUrl: './product-form.component.scss',
+    standalone: false
 })
 export class ProductFormComponent {
   errorMessage: string = '';

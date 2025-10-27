@@ -12,9 +12,10 @@ import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-employee-form',
-  templateUrl: './employee-form.component.html',
-  styleUrl: './employee-form.component.scss'
+    selector: 'app-employee-form',
+    templateUrl: './employee-form.component.html',
+    styleUrl: './employee-form.component.scss',
+    standalone: false
 })
 export class EmployeeFormComponent {
   errorMessage = '';

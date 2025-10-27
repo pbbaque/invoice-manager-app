@@ -10,9 +10,10 @@ import { CompanyService } from '../../../services/company.service';
 import { AddressService } from '../../../services/address.service';
 
 @Component({
-  selector: 'app-client-form',
-  templateUrl: './client-form.component.html',
-  styleUrl: './client-form.component.scss'
+    selector: 'app-client-form',
+    templateUrl: './client-form.component.html',
+    styleUrl: './client-form.component.scss',
+    standalone: false
 })
 export class ClientFormComponent implements OnInit {
   errorMessage: string = '';

@@ -15,9 +15,10 @@ import { EmployeeService } from '../../../services/employee.service';
 import { DetailConfig } from '../../../models/detail-config';
 
 @Component({
-  selector: 'app-invoice-list',
-  templateUrl: './invoice-list.component.html',
-  styleUrls: ['./invoice-list.component.scss']
+    selector: 'app-invoice-list',
+    templateUrl: './invoice-list.component.html',
+    styleUrls: ['./invoice-list.component.scss'],
+    standalone: false
 })
 export class InvoiceListComponent implements OnInit {
   invoices: Invoice[] = [];

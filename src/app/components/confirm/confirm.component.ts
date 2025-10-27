@@ -3,9 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 type ConfirmType = 'success' | 'error' | 'info' | 'warning';
 
 @Component({
-  selector: 'app-confirm',
-  templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.scss']
+    selector: 'app-confirm',
+    templateUrl: './confirm.component.html',
+    styleUrls: ['./confirm.component.scss'],
+    standalone: false
 })
 export class ConfirmComponent {
   @Input() message: string = '¿Estás seguro?';

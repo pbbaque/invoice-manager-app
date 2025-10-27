@@ -4,9 +4,10 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-forget',
-  templateUrl: './forget.component.html',
-  styleUrl: './forget.component.scss'
+    selector: 'app-forget',
+    templateUrl: './forget.component.html',
+    styleUrl: './forget.component.scss',
+    standalone: false
 })
 export class ForgetComponent implements OnInit {
   

@@ -4,9 +4,10 @@ import { Address } from '../../models/address';
 import { AddressService } from '../../services/address.service';
 
 @Component({
-  selector: 'app-entity-detail',
-  templateUrl: './entity-detail.component.html',
-  styleUrl: './entity-detail.component.scss'
+    selector: 'app-entity-detail',
+    templateUrl: './entity-detail.component.html',
+    styleUrl: './entity-detail.component.scss',
+    standalone: false
 })
 export class EntityDetailComponent {
   @Input() entity: any;

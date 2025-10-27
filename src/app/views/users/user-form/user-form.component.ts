@@ -12,9 +12,10 @@ import { Employee } from '../../../models/employee';
 import { Role } from '../../../models/role';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss'
+    selector: 'app-user-form',
+    templateUrl: './user-form.component.html',
+    styleUrl: './user-form.component.scss',
+    standalone: false
 })
 export class UserFormComponent implements OnInit {
   errorMessage: string = '';

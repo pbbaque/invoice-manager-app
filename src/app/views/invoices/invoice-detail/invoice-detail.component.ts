@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Invoice } from '../../../models/invoice';
 
 @Component({
-  selector: 'app-invoice-detail',
-  templateUrl: './invoice-detail.component.html',
-  styleUrls: ['./invoice-detail.component.scss']
+    selector: 'app-invoice-detail',
+    templateUrl: './invoice-detail.component.html',
+    styleUrls: ['./invoice-detail.component.scss'],
+    standalone: false
 })
 export class InvoiceDetailComponent {
   @Input() invoice: Invoice | null = null;

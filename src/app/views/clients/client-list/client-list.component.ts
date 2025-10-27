@@ -8,9 +8,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DetailConfig } from '../../../models/detail-config';
 
 @Component({
-  selector: 'app-client-list',
-  templateUrl: './client-list.component.html',
-  styleUrl: './client-list.component.scss'
+    selector: 'app-client-list',
+    templateUrl: './client-list.component.html',
+    styleUrl: './client-list.component.scss',
+    standalone: false
 })
 export class ClientListComponent implements OnInit {
 

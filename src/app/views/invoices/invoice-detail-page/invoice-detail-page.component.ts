@@ -4,9 +4,10 @@ import { Invoice } from '../../../models/invoice';
 import { InvoiceService } from '../../../services/invoice.service';
 
 @Component({
-  selector: 'app-invoice-detail-page',
-  templateUrl: './invoice-detail-page.component.html',
-  styleUrls: ['./invoice-detail-page.component.scss']
+    selector: 'app-invoice-detail-page',
+    templateUrl: './invoice-detail-page.component.html',
+    styleUrls: ['./invoice-detail-page.component.scss'],
+    standalone: false
 })
 export class InvoiceDetailPageComponent implements OnInit {
   invoice: Invoice | null = null;

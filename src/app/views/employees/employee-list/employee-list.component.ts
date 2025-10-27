@@ -7,9 +7,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AddressService } from '../../../services/address.service';
 
 @Component({
-  selector: 'app-employee-list',
-  templateUrl: './employee-list.component.html',
-  styleUrl: './employee-list.component.scss'
+    selector: 'app-employee-list',
+    templateUrl: './employee-list.component.html',
+    styleUrl: './employee-list.component.scss',
+    standalone: false
 })
 export class EmployeeListComponent {
 

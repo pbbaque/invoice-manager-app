@@ -3,9 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 type AlertType = 'success' | 'error' | 'info' | 'warning';
 
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrl: './alert.component.scss'
+    selector: 'app-alert',
+    templateUrl: './alert.component.html',
+    styleUrl: './alert.component.scss',
+    standalone: false
 })
 export class AlertComponent {
   @Input() message: string = '';

@@ -11,9 +11,10 @@ import { DetailConfig } from '../../../models/detail-config';
 register();
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+    selector: 'app-product-list',
+    templateUrl: './product-list.component.html',
+    styleUrls: ['./product-list.component.scss'],
+    standalone: false
 })
 export class ProductListComponent implements OnInit {
 

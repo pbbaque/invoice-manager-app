@@ -16,9 +16,10 @@ import { ClientService } from '../../../services/client.service';
 import { EmployeeService } from '../../../services/employee.service';
 
 @Component({
-  selector: 'app-invoice-form',
-  templateUrl: './invoice-form.component.html',
-  styleUrls: ['./invoice-form.component.scss']
+    selector: 'app-invoice-form',
+    templateUrl: './invoice-form.component.html',
+    styleUrls: ['./invoice-form.component.scss'],
+    standalone: false
 })
 export class InvoiceFormComponent implements OnInit {
   invoice: Invoice = {

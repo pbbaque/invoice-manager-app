@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
-  styleUrl: './breadcrumb.component.scss'
+    selector: 'app-breadcrumb',
+    templateUrl: './breadcrumb.component.html',
+    styleUrl: './breadcrumb.component.scss',
+    standalone: false
 })
 export class BreadcrumbComponent {
 

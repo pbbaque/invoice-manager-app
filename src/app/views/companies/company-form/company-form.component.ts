@@ -6,9 +6,10 @@ import { Company } from '../../../models/company';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-company-form',
-  templateUrl: './company-form.component.html',
-  styleUrl: './company-form.component.scss'
+    selector: 'app-company-form',
+    templateUrl: './company-form.component.html',
+    styleUrl: './company-form.component.scss',
+    standalone: false
 })
 export class CompanyFormComponent {
 errorMessage: string = '';

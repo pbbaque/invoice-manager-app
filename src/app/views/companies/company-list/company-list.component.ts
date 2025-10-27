@@ -8,9 +8,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Address } from '../../../models/address';
 
 @Component({
-  selector: 'app-company-list',
-  templateUrl: './company-list.component.html',
-  styleUrl: './company-list.component.scss'
+    selector: 'app-company-list',
+    templateUrl: './company-list.component.html',
+    styleUrl: './company-list.component.scss',
+    standalone: false
 })
 export class CompanyListComponent {
 
