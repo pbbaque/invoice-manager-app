@@ -1,3 +1,5 @@
+import { Company } from "./company";
+
 export interface Product {
     id: number;
     name: string;
@@ -5,4 +7,5 @@ export interface Product {
     price: number;
     sku: string;
     stock: number;
+    company: Company;
 }

@@ -70,7 +70,7 @@ export class CompanyService {
     return this.http.post<ApiResponse<Company>>(`${this.apiUrl}`, companyData, { headers: this.headers }).pipe(
       map(response => {
         if (!response.success && !response.data)
-          throw new Error(response.message || 'Error desconocido al obtener las empresas');
+          throw new Error(response.message || 'Error desconocido al crear la empresa');
         return response.data;
       }),
       catchError(error => {
@@ -84,7 +84,7 @@ export class CompanyService {
     return this.http.put<ApiResponse<Company>>(`${this.apiUrl}`, companyData, { headers: this.headers }).pipe(
       map(response => {
         if (!response.success && !response.data)
-          throw new Error(response.message || 'Error desconocido al obtener los clientes');
+          throw new Error(response.message || 'Error desconocido al actualizar la empresa');
         return response.data;
       }),
       catchError(error => {

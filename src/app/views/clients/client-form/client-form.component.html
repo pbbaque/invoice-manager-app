@@ -106,7 +106,7 @@
         <div *ngIf="isAdmin" class="form__field" formGroupName="company">
           <label for="companyId" class="form__label">Compañía</label>
           <select id="companyId" class="form__input" formControlName="id">
-            <option value="" disabled>Seleccione una compañía</option>
+            <option value="null" disabled>Seleccione una compañía</option>
             <option *ngFor="let company of companies" [value]="company.id">
               {{ company.name }}
             </option>

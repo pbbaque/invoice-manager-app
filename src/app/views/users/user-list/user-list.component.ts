@@ -17,19 +17,16 @@ export class UserListComponent implements OnInit {
   paginatedUsers: User[] = [];
   searchTerm: string = '';
 
-  // Paginacion
   currentPage: number = 1;
   itemsPerPage: number = window.innerWidth >= 2000 ? 20 : 5;
   totalPages: number = 1;
 
-  // Confirmacion y detalle
   showConfirmDelete: boolean = false;
   confirmMessage: string = '';
   userToDeleteId: number | null = null;
   selectedUser: User | null = null;
   detailVisible: boolean = false;
 
-  // Alertas
   errorMessage: string = '';
   errorVisible: boolean = false;
   noResults: boolean = false;

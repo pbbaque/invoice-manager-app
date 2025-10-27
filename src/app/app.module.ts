@@ -9,8 +9,11 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { authInterceptor } from './interceptors/auth.interceptor';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 @NgModule({
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     NotFoundComponent,

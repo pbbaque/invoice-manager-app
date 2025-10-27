@@ -25,7 +25,6 @@ export class EmployeeFormComponent {
   companies: Company[] = [];
   isAdmin = false;
 
-  // Opciones de usuario
   userOption: 'new' | 'existing' = 'existing';
   existingUserTerm = '';
   filteredUsers: any[] = [];
@@ -101,7 +100,6 @@ export class EmployeeFormComponent {
     });
   }
 
-  // Valida campos de usuario si se crea uno nuevo
   private setUserValidators(enable: boolean): void {
     const userGroup = this.employeeForm.get('user') as FormGroup;
     if (!userGroup) return;
@@ -125,7 +123,6 @@ export class EmployeeFormComponent {
     email?.updateValueAndValidity();
   }
 
-  // Búsqueda de usuarios existentes
   searchUsers(): void {
     if (!this.existingUserTerm.trim()) {
       this.filteredUsers = [];
@@ -152,7 +149,6 @@ export class EmployeeFormComponent {
     const employeeData: Employee = this.employeeForm.value;
     employeeData.company.id = this.isAdmin ? this.employeeForm.value.company.id : this.authService.getCompanyId();
 
-    // Manejo de usuario según opción seleccionada
     if (this.userOption === 'existing') {
       employeeData.user = this.selectedUser;
     } else if (this.userOption === 'new') {
@@ -183,7 +179,6 @@ export class EmployeeFormComponent {
     this.router.navigate(['/employees']);
   }
 
-  // Getters para formulario
   get name() { return this.employeeForm.get('name'); }
   get lastname() { return this.employeeForm.get('lastname'); }
   get email() { return this.employeeForm.get('email'); }

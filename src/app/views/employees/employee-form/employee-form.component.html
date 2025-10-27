@@ -23,7 +23,7 @@
   <div class="page__content">
     <form class="form" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
       <div class="form__content">
-        <!-- NOMBRE / APELLIDO -->
+
         <div class="form__group--row">
           <div class="form__field">
             <label for="name" class="form__label">Nombre</label>
@@ -43,7 +43,6 @@
           </div>
         </div>
 
-        <!-- EMAIL / TELEFONO -->
         <div class="form__group--row">
           <div class="form__field">
             <label for="email" class="form__label">Email</label>
@@ -63,7 +62,6 @@
           </div>
         </div>
 
-        <!-- POSICIÓN / SALARIO -->
         <div class="form__group--row">
           <div class="form__field">
             <label for="position" class="form__label">Posición</label>
@@ -83,7 +81,6 @@
           </div>
         </div>
 
-        <!-- CHECKBOX USER -->
         <div class="form__group--row form-radio-group">
           <div class="form__field">
             <label>
@@ -99,7 +96,6 @@
           </div>
         </div>
 
-        <!-- USER FIELDS -->
         <div formGroupName="user" *ngIf="userOption === 'new'">
           <div class="form__group--row">
             <div class="form__field">
@@ -134,7 +130,6 @@
           </div>
         </div>
 
-        <!-- ASIGNAR USUARIO EXISTENTE -->
          <div class="form__group--row" *ngIf="userOption === 'existing'">
            <div class="form__field">
              <label for="existingUser" class="form__label">Usuario existente</label>
@@ -145,12 +140,11 @@
            </div>
          </div>
 
-        <!-- COMPANY -->
         <div class="form__group--row">
           <div *ngIf="isAdmin" class="form__field" formGroupName="company">
             <label for="companyId" class="form__label">Compañía</label>
             <select id="companyId" class="form__input" formControlName="id">
-              <option value="" disabled>Seleccione una compañía</option>
+              <option value="null" disabled>Seleccione una compañía</option>
               <option *ngFor="let company of companies" [value]="company.id">{{ company.name }}</option>
             </select>
             <small *ngIf="company?.get('id')?.touched && company?.get('id')?.invalid" class="form__error">
@@ -160,7 +154,6 @@
         </div>
       </div>
 
-      <!-- SUBMIT / BACK -->
       <div class="form__group--row">
         <input type="submit" class="form__submit" [value]="isEditMode ? 'Guardar Cambios' : 'Registrar Empleado'" />
         <input type="button" class="form__return" value="Volver" (click)="goBack()" />

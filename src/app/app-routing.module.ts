@@ -26,11 +26,8 @@ const routes: Routes = [
       { path: 'invoices', loadChildren: () => import('./views/invoices/invoices.module').then(m => m.InvoicesModule) },
       { path: 'users', loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule) },
       { path: 'products', loadChildren: () => import('./views/products/products.module').then(m => m.ProductsModule) },
+      { path: '**', component: NotFoundComponent }
     ]
-  },
-  { 
-    path: '**', 
-    component: NotFoundComponent 
   }
 ];
 

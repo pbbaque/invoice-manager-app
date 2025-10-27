@@ -128,7 +128,7 @@ export class AddressService {
   formatPhoneE164(country: string, phone: string): string {
     let prefix = this.getPhonePrefix(country);
     if (!prefix) return phone.replace(/\D/g, '');
-    prefix = prefix.replace(/\D/g, ''); // eliminar signos no numéricos
+    prefix = prefix.replace(/\D/g, ''); 
     return `+${prefix}${phone.replace(/\D/g, '')}`;
   }
 

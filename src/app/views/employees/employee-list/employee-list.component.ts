@@ -18,19 +18,16 @@ export class EmployeeListComponent {
   paginatedEmployees: Employee[] = [];
   searchTerm: string = '';
 
-  // Paginacion
   currentPage: number = 1;
   itemsPerPage: number = window.innerWidth >= 2000 ? 20 : 5;
   totalPages: number = 1;
 
-  // Confirmacion y detalle
   showConfirmDelete: boolean = false;
   confirmMessage: string = '';
   employeeToDeleteId: number | null = null;
   selectedEmployee: Employee | null = null;
   detailVisible: boolean = false;
 
-  // Alerts
   errorVisible: boolean = false;
   noResults: boolean = false;
   errorMessage: string = '';

@@ -19,19 +19,16 @@ export class ClientListComponent implements OnInit {
   paginatedClients: Client[] = [];
   searchTerm: string = '';
 
-  // Paginacion
   currentPage: number = 1;
   itemsPerPage: number = window.innerWidth >= 2000 ? 20 : 5;
   totalPages: number = 1;
 
-  // Confirmacion y detalle
   showConfirmDelete: boolean = false;
   confirmMessage: string = '';
   clientToDeleteId: number | null = null;
   selectedClient: Client | null = null;
   detailVisible: boolean = false;
 
-  // Alerts
   errorVisible: boolean = false;
   noResults: boolean = false;
   errorMessage: string = '';

@@ -1,0 +1,11 @@
+<div class="product-card">
+  <h4 class="product-card__name">{{ product.name }}</h4>
+  <p class="product-card__description">{{ product.description }}</p>
+  <p class="product-card__code" *ngIf="product.sku">Código: {{ product.sku }}</p>
+  <p class="product-card__price" *ngIf="product.price">Precio: {{ product.price | currency }}</p>
+
+  <div class="list__actions">
+    <button class="btn btn--warning" (click)="onEdit(); $event.stopPropagation()">Editar</button>
+    <button class="btn btn--error" (click)="onDelete(); $event.stopPropagation()">Eliminar</button>
+  </div>
+</div>
