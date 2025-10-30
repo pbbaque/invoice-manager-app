@@ -1,26 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { InvoiceService } from '../../services/invoice.service'; 
-import { ClientService } from '../../services/client.service'; 
-import { ProductService } from '../../services/product.service'; 
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { InvoiceService } from '../../services/invoice.service';
+import { ClientService } from '../../services/client.service';
+import { ProductService } from '../../services/product.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
-    standalone: false
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  standalone: false
 })
 export class DashboardComponent implements OnInit {
 
-  totalFacturado: number = 0;
-  facturasMes: number = 0;
-  facturasHoy: number = 0;
+  totalInvoiced: number = 0;
+  invoicesThisMonth: number = 0;
+  invoicesToday: number = 0;
 
-  chartData: number[] = [];
-  chartLabels: string[] = [];
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  chartType: 'bar' = 'bar';
+  chartData: any = {
+    labels: [],
+    datasets: [
+      { data: [], label: 'Invoices' }
+    ]
+  };
+  chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: true },
+      tooltip: { enabled: true }
+    }
+  };
 
-  ultimasFacturas: any[] = [];
-  topClientes: any[] = [];
-  topProductos: any[] = [];
+  latestInvoices: any[] = [];
+  topClients: any[] = [];
+  topProducts: any[] = [];
 
   constructor(
     private invoiceService: InvoiceService,
@@ -35,21 +49,24 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadKPIs(): void {
-    // this.invoiceService.getTotalFacturado().subscribe(v => this.totalFacturado = v);
-    // this.invoiceService.getFacturasMes().subscribe(v => this.facturasMes = v);
-    // this.invoiceService.getFacturasHoy().subscribe(v => this.facturasHoy = v);
+    this.invoiceService.getTotalInvoiced().subscribe(v => this.totalInvoiced = v);
+    this.invoiceService.getInvoicesThisMonth().subscribe(v => this.invoicesThisMonth = v);
+    this.invoiceService.getInvoicesToday().subscribe(v => this.invoicesToday = v);
   }
 
   private loadChart(): void {
-    // this.invoiceService.getFacturasMensuales().subscribe(data => {
-    //   this.chartLabels = data.map(d => d.mes);
-    //   this.chartData = data.map(d => d.total);
-    // });
+    this.invoiceService.getMonthlyInvoices().subscribe(data => {
+      this.chartData.labels = data.map(d => d.monthName);
+      this.chartData.datasets[0].data = data.map(d => d.total);
+
+      setTimeout(() => this.chart?.update(), 0);
+    });
   }
 
   private loadRecentData(): void {
-    // this.invoiceService.getUltimasFacturas().subscribe(f => this.ultimasFacturas = f);
-    // this.clientService.getTopClientes().subscribe(c => this.topClientes = c);
-    // this.productService.getTopProductos().subscribe(p => this.topProductos = p);
+    this.invoiceService.getLatestInvoices().subscribe(f => this.latestInvoices = f);
+    this.clientService.getTopClients().subscribe(c => this.topClients = c);
+    this.productService.getTopProducts().subscribe(p => this.topProducts = p);
   }
+
 }

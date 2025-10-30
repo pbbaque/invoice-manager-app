@@ -31,38 +31,43 @@
       <p>{{ pendingCount }}</p>
     </div>
   </div>
-
-  <div class="page__actions">
-    <div class="page__search filters">
-      <input
-        type="text"
-        class="search__input"
-        placeholder="Buscar por id, cliente, descripción..."
-        [(ngModel)]="searchTerm"
-        (ngModelChange)="filterInvoices()"
-      />
-
-      <select [(ngModel)]="selectedCompanyId" (change)="filterInvoices()">
-        <option value="">Todas las empresas</option>
-        <option *ngFor="let c of companies" [value]="c.id">{{ c.name }}</option>
-      </select>
-
-      <select [(ngModel)]="selectedClientId" (change)="filterInvoices()">
-        <option value="">Todos los clientes</option>
-        <option *ngFor="let cl of clients" [value]="cl.id">{{ cl.name }}</option>
-      </select>
-
-      <input type="date" [(ngModel)]="fromDate" (change)="filterInvoices()" />
-      <input type="date" [(ngModel)]="toDate" (change)="filterInvoices()" />
-    </div>
-
-    <div class="actions__buttons">
-      <button class="btn btn--secondary" (click)="goToCreate()">Nueva Factura</button>
-    </div>
-  </div>
-
   <!-- CONTENIDO -->
   <div class="page__content">
+    <div class="page__actions">
+      <div class="page__search filters">
+        <input
+          type="text"
+          class="search__input"
+          placeholder="Buscar por id, cliente, descripción..."
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterInvoices()"
+        />
+
+        <select [(ngModel)]="selectedCompanyId" (change)="filterInvoices()">
+          <option value="">Todas las empresas</option>
+          <option *ngFor="let c of companies" [value]="c.id">
+            {{ c.name }}
+          </option>
+        </select>
+
+        <select [(ngModel)]="selectedClientId" (change)="filterInvoices()">
+          <option value="">Todos los clientes</option>
+          <option *ngFor="let cl of clients" [value]="cl.id">
+            {{ cl.name }}
+          </option>
+        </select>
+
+        <input type="date" [(ngModel)]="fromDate" (change)="filterInvoices()" />
+        <input type="date" [(ngModel)]="toDate" (change)="filterInvoices()" />
+      </div>
+
+      <div class="actions__buttons">
+        <button class="btn btn--secondary" (click)="goToCreate()">
+          Nueva Factura
+        </button>
+      </div>
+    </div>
+
     <div *ngIf="noResults" class="no-results">No se encontraron facturas.</div>
 
     <div class="invoice-list" *ngIf="!noResults">
@@ -85,7 +90,6 @@
   (cancelled)="cancelDelete()"
 >
 </app-confirm>
-
 
 <app-invoice-detail
   [invoice]="selectedInvoice"

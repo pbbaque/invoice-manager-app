@@ -45,6 +45,71 @@ export class InvoiceService {
     )
   }
 
+  getTotalInvoiced(): Observable<number> {
+    return this.http.get<ApiResponse<number>>(`${this.apiUrl}/total`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success) throw new Error(response.message || 'Unknown error getting total invoiced');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error in getTotalInvoiced', error);
+        return throwError(() => new Error(error.message || 'Request error'));
+      })
+    );
+  }
+
+  getInvoicesThisMonth(): Observable<number> {
+    return this.http.get<ApiResponse<number>>(`${this.apiUrl}/this-month`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success) throw new Error(response.message || 'Unknown error getting invoices this month');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error in getInvoicesThisMonth', error);
+        return throwError(() => new Error(error.message || 'Request error'));
+      })
+    );
+  }
+
+  getInvoicesToday(): Observable<number> {
+    return this.http.get<ApiResponse<number>>(`${this.apiUrl}/today`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success) throw new Error(response.message || 'Unknown error getting invoices today');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error in getInvoicesToday', error);
+        return throwError(() => new Error(error.message || 'Request error'));
+      })
+    );
+  }
+
+  getMonthlyInvoices(): Observable<{ monthName: string, total: number }[]> {
+    return this.http.get<ApiResponse<{ monthName: string, total: number }[]>>(`${this.apiUrl}/monthly`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success) throw new Error(response.message || 'Unknown error getting monthly invoices');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error in getMonthlyInvoices', error);
+        return throwError(() => new Error(error.message || 'Request error'));
+      })
+    );
+  }
+
+  getLatestInvoices(): Observable<Invoice[]> {
+    return this.http.get<ApiResponse<Invoice[]>>(`${this.apiUrl}/latest`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success) throw new Error(response.message || 'Unknown error getting latest invoices');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error in getLatestInvoices', error);
+        return throwError(() => new Error(error.message || 'Request error'));
+      })
+    );
+  }
+
   searchProducts(term: string): Observable<Invoice[]> {
     let params = new HttpParams().set('term', term);
     return this.http.get<ApiResponse<Invoice[]>>(`${this.apiUrl}/search/all`, { params }).pipe(

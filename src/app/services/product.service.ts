@@ -57,6 +57,19 @@ export class ProductService {
     )
   }
 
+  getTopProducts(): Observable<{ name: string, quantitySold: number }[]> {
+    return this.http.get<ApiResponse<{ name: string, quantitySold: number }[]>>(`${this.apiUrl}/top`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success) throw new Error(response.message || 'Unknown error getting top products');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error in getTopProducts', error);
+        return throwError(() => new Error(error.message || 'Request error'));
+      })
+    );
+  }
+
   searchProducts(term: string): Observable<Product[]> {
     let params = new HttpParams().set('term', term);
     return this.http.get<ApiResponse<Product[]>>(`${this.apiUrl}/search/all`, { params }).pipe(

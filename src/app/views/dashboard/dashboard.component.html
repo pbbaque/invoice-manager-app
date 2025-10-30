@@ -1,42 +1,43 @@
 <div class="page">
   <div class="page__header">
-    <h2 class="page__name">Dashboard</h2>
+    <h2 class="page__name">Panel de Control</h2>
     <p class="page__description">
-      Vista general de la facturación, clientes y productos.
+      Resumen de facturación, clientes y productos.
     </p>
   </div>
 
+  
+  <!-- KPIs -->
+  <div class="dashboard__kpis">
+    <div class="kpi-card">
+      <div class="kpi-title">Total Facturado</div>
+      <div class="kpi-value">{{ totalInvoiced | currency }}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Facturas del Mes</div>
+      <div class="kpi-value">{{ invoicesThisMonth }}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Facturas de Hoy</div>
+      <div class="kpi-value">{{ invoicesToday }}</div>
+    </div>
+  </div>
   <div class="page__content">
 
-    <!-- KPIs -->
-    <div class="dashboard__kpis">
-      <div class="kpi-card">
-        <div class="kpi-title">Total facturado</div>
-        <div class="kpi-value">{{ totalFacturado | currency }}</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">Facturas este mes</div>
-        <div class="kpi-value">{{ facturasMes }}</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">Facturas hoy</div>
-        <div class="kpi-value">{{ facturasHoy }}</div>
-      </div>
-    </div>
-
-    <!-- Gráfico mensual -->
+    <!-- Monthly Chart -->
     <div class="dashboard__chart">
-      <!-- <canvas baseChart
+      <canvas
+        baseChart
+        [type]="chartType"
         [data]="chartData"
-        [labels]="chartLabels"
-        [type]="'bar'">
-      </canvas> -->
+        [options]="chartOptions">
+      </canvas>
     </div>
 
-    <!-- Listados recientes -->
+    <!-- Recent Lists -->
     <div class="dashboard__lists">
       <div class="recent-list">
-        <h3>Últimas facturas</h3>
+        <h4>Últimas Facturas</h4>
         <table>
           <thead>
             <tr>
@@ -47,7 +48,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let f of ultimasFacturas">
+            <tr *ngFor="let f of latestInvoices">
               <td>{{ f.id }}</td>
               <td>{{ f.client.name }} {{ f.client.lastname }}</td>
               <td>{{ f.total | currency }}</td>
@@ -58,25 +59,25 @@
       </div>
 
       <div class="recent-list">
-        <h3>Top clientes</h3>
+        <h4>Mejores Clientes</h4>
         <table>
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Total facturado</th>
+              <th>Facturado</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let c of topClientes">
+            <tr *ngFor="let c of topClients">
               <td>{{ c.name }} {{ c.lastname }}</td>
-              <td>{{ c.totalFacturado | currency }}</td>
+              <td>{{ c.totalInvoiced | currency }}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="recent-list">
-        <h3>Top productos</h3>
+        <h4>Más Vendidos</h4>
         <table>
           <thead>
             <tr>
@@ -85,7 +86,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let p of topProductos">
+            <tr *ngFor="let p of topProducts">
               <td>{{ p.name }}</td>
               <td>{{ p.quantitySold }}</td>
             </tr>

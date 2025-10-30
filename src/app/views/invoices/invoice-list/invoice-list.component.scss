@@ -54,7 +54,17 @@
   }
 
   &__content {
-    margin-top: 1rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    max-height: 55vh;
+    overflow-y: auto;
+
+    @include xl_desktop {
+      max-height: 70vh;
+    }
   }
 }
 
@@ -106,7 +116,6 @@
   border: 1px solid $gray-300;
   background: $white;
 }
-
 
 .btn {
   @include button($color-primary, $white);

@@ -12,13 +12,13 @@ export class ClientService {
 
   private apiUrl: string = environment.apiUrl + '/clients';
   private headers = { 'Content-Type': 'application/json' };
-  
-  constructor( private http: HttpClient ) { }
+
+  constructor(private http: HttpClient) { }
 
   findAll(): Observable<Client[]> {
-    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}`, {headers: this.headers}).pipe(
+    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}`, { headers: this.headers }).pipe(
       map(response => {
-        if(!response.success)
+        if (!response.success)
           throw new Error(response.message || 'Error desconocido al obtener los clientes');
         return response.data;
       }),
@@ -30,9 +30,9 @@ export class ClientService {
   }
 
   findById(clientId: number): Observable<Client> {
-    return this.http.get<ApiResponse<Client>>(`${this.apiUrl}/${clientId}`, {headers: this.headers}).pipe(
+    return this.http.get<ApiResponse<Client>>(`${this.apiUrl}/${clientId}`, { headers: this.headers }).pipe(
       map(response => {
-        if(!response.success)
+        if (!response.success)
           throw new Error(response.message || 'Error desconocido al obtener los clientes');
         return response.data;
       }),
@@ -44,9 +44,9 @@ export class ClientService {
   }
 
   findByCompanyId(companyId: number): Observable<Client[]> {
-    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/company/${companyId}`, {headers: this.headers}).pipe(
+    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/company/${companyId}`, { headers: this.headers }).pipe(
       map(response => {
-        if(!response.success)
+        if (!response.success)
           throw new Error(response.message || 'Error desconocido al obtener los clientes');
         return response.data;
       }),
@@ -57,12 +57,25 @@ export class ClientService {
     )
   }
 
+  getTopClients(): Observable<{ name: string, lastname: string, totalInvoiced: number }[]> {
+    return this.http.get<ApiResponse<{ name: string, lastname: string, totalInvoiced: number }[]>>(`${this.apiUrl}/top`, { headers: this.headers }).pipe(
+      map(response => {
+        if (!response.success) throw new Error(response.message || 'Unknown error getting top clients');
+        return response.data;
+      }),
+      catchError(error => {
+        console.error('Error in getTopClients', error);
+        return throwError(() => new Error(error.message || 'Request error'));
+      })
+    );
+  }
+
   searchClients(term: string): Observable<Client[]> {
     let params = new HttpParams().set('term', term);
-    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/search/all`, {params}).pipe(
+    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/search/all`, { params }).pipe(
       map(response => response.data || []),
       catchError(error => {
-        if(error.status === 404)
+        if (error.status === 404)
           return of<Client[]>([]);
         return throwError(() => error);
       })
@@ -71,15 +84,15 @@ export class ClientService {
 
   searchClientsByCompanyId(term: string, companyId: number): Observable<Client[]> {
     let params = new HttpParams().set('term', term);
-    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/search/all/company/${companyId}`, {params}).pipe(
+    return this.http.get<ApiResponse<Client[]>>(`${this.apiUrl}/search/all/company/${companyId}`, { params }).pipe(
       map(response => response.data || [])
     );
   }
 
   create(clientData: Client): Observable<Client> {
-    return this.http.post<ApiResponse<Client>>(`${this.apiUrl}/${clientData.company.id}`, clientData, {headers: this.headers}).pipe(
+    return this.http.post<ApiResponse<Client>>(`${this.apiUrl}/${clientData.company.id}`, clientData, { headers: this.headers }).pipe(
       map(response => {
-        if(!response.success && !response.data)
+        if (!response.success && !response.data)
           throw new Error(response.message || 'Error desconocido al obtener los clientes');
         return response.data;
       }),
@@ -91,9 +104,9 @@ export class ClientService {
   }
 
   update(clientData: Client): Observable<Client> {
-    return this.http.put<ApiResponse<Client>>(`${this.apiUrl}/${clientData.company.id}`, clientData, {headers: this.headers}).pipe(
+    return this.http.put<ApiResponse<Client>>(`${this.apiUrl}/${clientData.company.id}`, clientData, { headers: this.headers }).pipe(
       map(response => {
-        if(!response.success && !response.data)
+        if (!response.success && !response.data)
           throw new Error(response.message || 'Error desconocido al obtener los clientes');
         return response.data;
       }),
@@ -105,7 +118,7 @@ export class ClientService {
   }
 
   delete(clientId: number): Observable<Client> {
-    return this.http.delete<ApiResponse<Client>>(`${this.apiUrl}/${clientId}`, {headers: this.headers}).pipe(
+    return this.http.delete<ApiResponse<Client>>(`${this.apiUrl}/${clientId}`, { headers: this.headers }).pipe(
       map(response => {
         if (!response.success && !response.data)
           throw new Error(response.message || 'Error desconocido al eliminar el cliente');

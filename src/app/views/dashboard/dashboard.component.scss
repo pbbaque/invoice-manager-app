@@ -1,5 +1,31 @@
+@use "index" as *;
+
+.page {
+  @include container;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  &__content {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+    max-height: 55vh;
+    overflow-y: auto;
+
+    @include xl_desktop {
+      max-height: 70vh;
+    }
+  }
+}
+
 .dashboard__kpis {
   display: flex;
+  flex-direction: column; 
   gap: 1rem;
   margin-bottom: 2rem;
 
@@ -21,15 +47,30 @@
       font-weight: bold;
     }
   }
+
+  @include tablet {
+    flex-direction: row; 
+  }
 }
 
 .dashboard__chart {
   margin-bottom: 2rem;
-}
 
+  canvas {
+    width: 100% !important;
+    height: 30rem !important; 
+  }
+
+  @include xl_desktop {
+    canvas {
+      height: 20px !important; 
+    }
+  }
+}
 .dashboard__lists {
   display: flex;
-  gap: 2rem;
+  flex-direction: column; 
+  gap: 1.5rem;
 
   .recent-list {
     flex: 1;
@@ -51,6 +92,18 @@
         text-align: left;
         font-weight: 600;
       }
+
+      td {
+        font-size: 1.5rem;
+      }
     }
+  }
+
+  @include tablet {
+    flex-direction: row; 
+  }
+
+  @include xl_desktop {
+    gap: 2rem;
   }
 }
