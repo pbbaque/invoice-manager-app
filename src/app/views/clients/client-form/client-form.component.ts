@@ -70,7 +70,6 @@ export class ClientFormComponent implements OnInit {
   loadClient(id: number): void {
     this.clientService.findById(id).subscribe({
       next: (client: Client) => {
-        console.log(client);
         this.clientForm.patchValue(client);
       },
       error: (error: HttpErrorResponse) => {

@@ -15,11 +15,6 @@ export class HeaderComponent {
 
   constructor( private authService: AuthService, private router: Router) {}
 
-
-  toggleMenu() {
-    this.dropdownOpen = !this.dropdownOpen;
-  }
-
   onLogout() {
     this.showConfirmLogout = true;
   }
@@ -30,7 +25,20 @@ export class HeaderComponent {
     this.router.navigate(['auth/login']);
   }
 
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    return roles.some(r => userRoles.includes(r));
+  }
+
   cancelLogout() {
     this.showConfirmLogout = false;
+  }
+
+  openUserProfile() {
+    this.router.navigate(['profiles/user']);
+  }
+
+  openCompanyProfile() {
+    this.router.navigate(['profiles/company']);
   }
 }

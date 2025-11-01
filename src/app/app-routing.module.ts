@@ -48,6 +48,10 @@ const routes: Routes = [
         path: 'products', loadChildren: () => import('./views/products/products.module').then(m => m.ProductsModule), 
         canActivate: [roleGuard], data: { roles: ['superadmin', 'admin', 'superadmincompany', 'admincompany', 'user'] }
       },
+      { 
+        path: 'profiles', loadChildren: () => import('./views/profiles/profiles.module').then(m => m.ProfilesModule), 
+        canActivate: [roleGuard], data: { roles: ['superadmin', 'admin', 'superadmincompany', 'admincompany', 'user'] }
+      },
       { path: '**', component: NotFoundComponent }
     ]
   }

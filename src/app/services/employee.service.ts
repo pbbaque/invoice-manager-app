@@ -78,7 +78,6 @@ export class EmployeeService {
   }
 
   create(employeeData: Employee): Observable<Employee> {
-    console.log(employeeData);
     return this.http.post<ApiResponse<Employee>>(`${this.apiUrl}`, employeeData, { headers: this.headers }).pipe(
       map(response => {
         if (!response.success && !response.data)
@@ -97,8 +96,6 @@ createWithUser(employeeData: Employee): Observable<Employee> {
     employee: { ...employeeData, user: undefined }, 
     user: employeeData.user || {}                  
   };
-
-  console.log('DTO enviado al backend:', JSON.stringify(dto, null, 2));
 
   return this.http.post<ApiResponse<Employee>>(
     `${this.apiUrl}/with-user`,

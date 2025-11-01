@@ -17,12 +17,11 @@
       <span class="header__username">Admin</span>
     </div>
 
-    <button class="header__icon-btn" aria-label="Notifications">
-      <span class="header__icon header__icon--bell"></span>
-      <span class="header__badge">3</span>
+    <button class="header__icon-btn" aria-label="CurrentCompany" (click)="openCompanyProfile()" *ngIf="hasRole(['ROLE_COMPANY_SUPER_ADMIN', 'ROLE_COMPANY_ADMIN'])">
+      <span class="header__icon header__icon--company"></span>
     </button>
 
-    <button class="header__icon-btn" aria-label="Contact">
+    <button class="header__icon-btn" aria-label="Contact" (click)="openUserProfile()">
       <span class="header__icon header__icon--contact"></span>
     </button>
 

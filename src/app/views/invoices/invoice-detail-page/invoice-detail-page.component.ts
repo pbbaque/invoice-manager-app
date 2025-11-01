@@ -29,7 +29,6 @@ export class InvoiceDetailPageComponent implements OnInit {
     this.invoiceService.findById(id).subscribe({
       next: (invoice) => {
         this.invoice = invoice;
-        console.log(this.invoice)
       },
       error: () => this.router.navigate(['/invoices'])
     });

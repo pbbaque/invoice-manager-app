@@ -28,7 +28,6 @@ export class ProductCardComponent {
 
   hasRole(roles: string[]): boolean {
     const userRoles = this.authService.getRoles();
-    console.log(userRoles)
     return roles.some(r => userRoles.includes(r));
   }
 

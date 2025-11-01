@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environments';
 import { ApiResponse } from '../models/api-response';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
 import { JwtPayload } from '../models/jwtpayload';
-import {jwtDecode}  from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import { Company } from '../models/company';
 
 @Injectable({
   providedIn: 'root'
@@ -37,13 +38,38 @@ export class AuthService {
             this.storageService.saveUser(response.data);
             this.decodeToken();
             this.loggedIn.next(true);
-            console.log('Login successful, token saved:', token);
           }
         },
         error => {
           console.error('Login error', error);
         }
       )
+    );
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.http.get<ApiResponse<User>>(`${this.apiUrl}/users/current`, { headers: this.headers }).pipe(
+      map(res => {
+        if (!res.success) throw new Error(res.message || 'Error desconocido al obtener el usuario');
+        return res.data;
+      }),
+      catchError(err => {
+        console.error('Error en getCurrentUser', err);
+        return throwError(() => new Error(err.message || 'Error en la solicitud'));
+      })
+    );
+  }
+
+  getCurrentCompany(): Observable<Company> {
+    return this.http.get<ApiResponse<Company>>(`${this.apiUrl}/companies/current`, { headers: this.headers }).pipe(
+      map(res => {
+        if (!res.success) throw new Error(res.message || 'Error desconocido al obtener la empresa');
+        return res.data;
+      }),
+      catchError(err => {
+        console.error('Error en getCurrentCompany', err);
+        return throwError(() => new Error(err.message || 'Error en la solicitud'));
+      })
     );
   }
 
@@ -110,7 +136,6 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    console.log('Requesting password reset for email:', email);
     const params = new HttpParams().set('email', email);
     return this.http.post<ApiResponse<string>>(`${this.apiUrl}/auth/forgot-password`, null, { headers: this.headers, params: params });
   }

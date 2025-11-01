@@ -54,7 +54,6 @@ errorMessage: string = '';
   loadCompany(id: number): void {
     this.companyService.findById(id).subscribe({
       next: (company: Company) => {
-        console.log(company);
         this.companyForm.patchValue(company);
       },
       error: (error: HttpErrorResponse) => {

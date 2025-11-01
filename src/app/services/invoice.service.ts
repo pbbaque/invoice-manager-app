@@ -32,7 +32,6 @@ export class InvoiceService {
   findById(invoiceId: number): Observable<Invoice> {
     return this.http.get<ApiResponse<Invoice>>(`${this.apiUrl}/${invoiceId}`, { headers: this.headers }).pipe(
       map(response => {
-        console.log(response.data)
 
         if (!response.success)
           throw new Error(response.message || 'Error desconocido al obtener la factura');

@@ -176,7 +176,6 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Form valid:', this.userForm.valid, this.userForm.value);
     if (this.userForm.invalid) return;
     if (this.userForm.errors && this.userForm.errors['passwordsMismatch']) {
       this.errorMessage = 'La contraseña y la repetición no coinciden';
@@ -193,8 +192,6 @@ export class UserFormComponent implements OnInit {
     };
 
     if (this.isEditMode && this.userId) {
-      console.log(this.userForm.value)
-
       userData.id = this.userId;
       this.userService.update(userData).subscribe({
         next: () => this.goBack(),

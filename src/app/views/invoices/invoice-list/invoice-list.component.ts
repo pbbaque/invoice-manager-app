@@ -178,7 +178,6 @@ export class InvoiceListComponent implements OnInit {
 
   hasRole(roles: string[]): boolean {
     const userRoles = this.authService.getRoles();
-    console.log(userRoles)
     return roles.some(r => userRoles.includes(r));
   }
 
