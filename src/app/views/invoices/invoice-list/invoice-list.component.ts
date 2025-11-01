@@ -13,12 +13,13 @@ import { ClientService } from '../../../services/client.service';
 import { EmployeeService } from '../../../services/employee.service';
 
 import { DetailConfig } from '../../../models/detail-config';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
-    selector: 'app-invoice-list',
-    templateUrl: './invoice-list.component.html',
-    styleUrls: ['./invoice-list.component.scss'],
-    standalone: false
+  selector: 'app-invoice-list',
+  templateUrl: './invoice-list.component.html',
+  styleUrls: ['./invoice-list.component.scss'],
+  standalone: false
 })
 export class InvoiceListComponent implements OnInit {
   invoices: Invoice[] = [];
@@ -67,6 +68,7 @@ export class InvoiceListComponent implements OnInit {
     private companyService: CompanyService,
     private clientService: ClientService,
     private employeeService: EmployeeService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -76,7 +78,11 @@ export class InvoiceListComponent implements OnInit {
   }
 
   private loadLookups(): void {
-    this.companyService.findAll().subscribe({ next: c => this.companies = c, error: e => this.handleError(e) });
+    const userRoles = this.authService.getRoles();
+
+    if (userRoles.includes('SUPER_ADMIN') || userRoles.includes('ADMIN')) {
+      this.companyService.findAll().subscribe({ next: c => this.companies = c, error: e => this.handleError(e) });
+    }
     this.clientService.findAll().subscribe({ next: c => this.clients = c, error: e => this.handleError(e) });
     this.employeeService.findAll().subscribe({ next: e => this.employees = e, error: e => this.handleError(e) });
   }
@@ -169,6 +175,13 @@ export class InvoiceListComponent implements OnInit {
       }
     });
   }
+
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
+  }
+
 
   cancelDelete(): void {
     this.invoiceToDelete = null;

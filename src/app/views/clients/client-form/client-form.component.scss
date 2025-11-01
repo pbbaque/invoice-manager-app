@@ -19,13 +19,27 @@
     @include page-description;
   }
 
-  .form__content {
-    margin-top: 2rem;
+  &__content {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    max-height: 47vh;
+
+    max-height: 40vh;
     overflow-y: auto;
+
+    @include tablet {
+      max-height: 55vh;
+    }
+
+    @include xl_desktop {
+      max-height: 70vh;
+    }
+  }
+
+  .form__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .form__group--row {

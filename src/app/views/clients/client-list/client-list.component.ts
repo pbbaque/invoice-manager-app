@@ -6,12 +6,13 @@ import { Address } from '../../../models/address';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DetailConfig } from '../../../models/detail-config';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
-    selector: 'app-client-list',
-    templateUrl: './client-list.component.html',
-    styleUrl: './client-list.component.scss',
-    standalone: false
+  selector: 'app-client-list',
+  templateUrl: './client-list.component.html',
+  styleUrl: './client-list.component.scss',
+  standalone: false
 })
 export class ClientListComponent implements OnInit {
 
@@ -50,6 +51,7 @@ export class ClientListComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private addressService: AddressService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -172,6 +174,12 @@ export class ClientListComponent implements OnInit {
   closeDetail(): void {
     this.selectedClient = null;
     this.detailVisible = false;
+  }
+
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
   }
 
   formatAddress(address: Address): string {

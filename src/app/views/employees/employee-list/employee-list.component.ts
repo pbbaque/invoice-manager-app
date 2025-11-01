@@ -5,6 +5,7 @@ import { EmployeeService } from '../../../services/employee.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AddressService } from '../../../services/address.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'app-employee-list',
@@ -52,6 +53,7 @@ export class EmployeeListComponent {
   constructor(
     private employeeService: EmployeeService,
     private addressService: AddressService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -170,6 +172,13 @@ export class EmployeeListComponent {
   openDetail(employee: Employee): void {
     this.selectedEmployee = { ...employee };
     this.detailVisible = true;
+  }
+
+  
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
   }
 
   closeDetail(): void {

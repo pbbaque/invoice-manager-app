@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrl: './sidebar.component.scss',
-    standalone: false
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
+  standalone: false
 })
 export class SidebarComponent {
 
   sidebarOpen = false;
+
+  constructor(private authService: AuthService) {}
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -20,4 +23,9 @@ export class SidebarComponent {
     }
   }
 
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
+  }
 }

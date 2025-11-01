@@ -3,6 +3,10 @@
 .page {
   @include container;
 
+  @include xl_desktop {
+    @include container-lg;
+  }
+
   &__header {
     text-align: center;
     margin-bottom: 1.5rem;
@@ -11,23 +15,16 @@
   &__content {
     margin-top: 2rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 2rem;
-
-    max-height: 55vh;
-    overflow-y: auto;
-
-    @include xl_desktop {
-      max-height: 70vh;
-    }
   }
 }
 
-.dashboard__kpis {
+.dashboard__kpis--row {
   display: flex;
-  flex-direction: column; 
+  flex-direction: row;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 
   .kpi-card {
     flex: 1;
@@ -35,7 +32,7 @@
     background: #f8f9fa;
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
     .kpi-title {
       font-weight: 500;
@@ -43,67 +40,89 @@
     }
 
     .kpi-value {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bold;
     }
   }
+}
+
+.dashboard__layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
   @include tablet {
-    flex-direction: row; 
+    flex-direction: row;
   }
 }
 
-.dashboard__chart {
-  margin-bottom: 2rem;
+.dashboard__chart-panel {
+  flex: 2;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-  canvas {
-    width: 100% !important;
-    height: 30rem !important; 
+  .chart-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
   }
 
-  @include xl_desktop {
+  .dashboard__chart {
     canvas {
-      height: 20px !important; 
+      width: 100% !important;
+      height: 45vh !important;
+      @include xl_desktop {
+        max-height: 70vh;
+      }
     }
   }
 }
-.dashboard__lists {
+
+.dashboard__side-lists {
+  flex: 1;
   display: flex;
-  flex-direction: column; 
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 1.2rem;
+  overflow-y: auto;
+  max-height: 55vh;
+
+  @include xl_desktop {
+    max-height: 70vh;
+  }
 
   .recent-list {
-    flex: 1;
+    flex: none;
     background: #fff;
     border-radius: 8px;
     padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    h4 {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
 
     table {
       width: 100%;
       border-collapse: collapse;
 
-      th, td {
+      th,
+      td {
         padding: 0.5rem;
         border-bottom: 1px solid #eee;
       }
 
       th {
-        text-align: left;
+        text-align: center;
         font-weight: 600;
       }
 
       td {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        text-align: center;
       }
     }
-  }
-
-  @include tablet {
-    flex-direction: row; 
-  }
-
-  @include xl_desktop {
-    gap: 2rem;
   }
 }

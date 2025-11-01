@@ -53,19 +53,24 @@
     }
   }
 
-  &__content {
+&__content {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
 
-    max-height: 55vh;
+    max-height: 40vh;
     overflow-y: auto;
+
+    @include tablet {
+      max-height: 55vh;
+    }
 
     @include xl_desktop {
       max-height: 70vh;
     }
   }
+
 }
 
 .invoice-summary {

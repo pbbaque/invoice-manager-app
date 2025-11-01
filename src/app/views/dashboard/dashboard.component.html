@@ -6,9 +6,7 @@
     </p>
   </div>
 
-  
-  <!-- KPIs -->
-  <div class="dashboard__kpis">
+  <div class="dashboard__kpis dashboard__kpis--row">
     <div class="kpi-card">
       <div class="kpi-title">Total Facturado</div>
       <div class="kpi-value">{{ totalInvoiced | currency }}</div>
@@ -22,20 +20,21 @@
       <div class="kpi-value">{{ invoicesToday }}</div>
     </div>
   </div>
-  <div class="page__content">
 
-    <!-- Monthly Chart -->
-    <div class="dashboard__chart">
-      <canvas
-        baseChart
-        [type]="chartType"
-        [data]="chartData"
-        [options]="chartOptions">
-      </canvas>
+  <div class="page__content dashboard__layout">
+    <div class="dashboard__chart-panel">
+      <h4 class="chart-title">Evolución Mensual</h4>
+      <div class="dashboard__chart">
+        <canvas
+          baseChart
+          [type]="chartType"
+          [data]="chartData"
+          [options]="chartOptions">
+        </canvas>
+      </div>
     </div>
 
-    <!-- Recent Lists -->
-    <div class="dashboard__lists">
+    <div class="dashboard__side-lists">
       <div class="recent-list">
         <h4>Últimas Facturas</h4>
         <table>
@@ -94,6 +93,5 @@
         </table>
       </div>
     </div>
-
   </div>
 </div>

@@ -12,10 +12,10 @@ import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-    selector: 'app-employee-form',
-    templateUrl: './employee-form.component.html',
-    styleUrl: './employee-form.component.scss',
-    standalone: false
+  selector: 'app-employee-form',
+  templateUrl: './employee-form.component.html',
+  styleUrl: './employee-form.component.scss',
+  standalone: false
 })
 export class EmployeeFormComponent {
   errorMessage = '';
@@ -39,7 +39,7 @@ export class EmployeeFormComponent {
     private authService: AuthService,
     private companyService: CompanyService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isAdmin = this.authService.hasRole('ROLE_ADMIN') || this.authService.hasRole('ROLE_SUPER_ADMIN');
@@ -175,6 +175,13 @@ export class EmployeeFormComponent {
       }
     });
   }
+
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
+  }
+
 
   goBack(): void {
     this.router.navigate(['/employees']);

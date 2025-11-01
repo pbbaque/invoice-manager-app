@@ -62,6 +62,7 @@
             <button
               class="btn btn--error"
               (click)="deleteEmployee(employee); $event.stopPropagation()"
+              *ngIf="hasRole(['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_COMPANY_SUPER_ADMIN', 'ROLE_COMPANY_ADMIN'])"
             >
               Eliminar
             </button>

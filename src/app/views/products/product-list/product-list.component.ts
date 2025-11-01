@@ -6,15 +6,16 @@ import { Product } from '../../../models/product';
 
 import { register } from 'swiper/element/bundle';
 import { DetailConfig } from '../../../models/detail-config';
+import { AuthService } from '../../../services/auth.service';
 
 
 register();
 
 @Component({
-    selector: 'app-product-list',
-    templateUrl: './product-list.component.html',
-    styleUrls: ['./product-list.component.scss'],
-    standalone: false
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss'],
+  standalone: false
 })
 export class ProductListComponent implements OnInit {
 
@@ -51,6 +52,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -144,6 +146,13 @@ export class ProductListComponent implements OnInit {
       }
     });
   }
+
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
+  }
+
 
   cancelDelete(): void {
     this.selectedProduct = null;

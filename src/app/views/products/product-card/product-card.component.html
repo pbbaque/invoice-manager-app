@@ -6,6 +6,6 @@
 
   <div class="list__actions">
     <button class="btn btn--warning" (click)="onEdit(); $event.stopPropagation()">Editar</button>
-    <button class="btn btn--error" (click)="onDelete(); $event.stopPropagation()">Eliminar</button>
+    <button class="btn btn--error" (click)="onDelete(); $event.stopPropagation()" *ngIf="hasRole(['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_COMPANY_SUPER_ADMIN', 'ROLE_COMPANY_ADMIN'])">Eliminar</button>
   </div>
 </div>

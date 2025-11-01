@@ -28,7 +28,7 @@
 
     <div class="invoice-card__actions">
       <button class="btn btn--warning" (click)="onEdit($event)">Editar</button>
-      <button class="btn btn--error" (click)="onDelete($event)">Eliminar</button>
+      <button class="btn btn--error" (click)="onDelete($event)" *ngIf="hasRole(['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_COMPANY_SUPER_ADMIN', 'ROLE_COMPANY_ADMIN'])">Eliminar</button>
     </div>
   </div>
 </div>

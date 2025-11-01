@@ -1,15 +1,14 @@
-@use 'index' as *;
+@use "index" as *;
 
 .page {
   @include container;
 
-  
   @include xl_desktop {
     @include container-lg;
   }
-  
-  &__header { 
-    margin-bottom: 1.25rem; 
+
+  &__header {
+    margin-bottom: 1.25rem;
     text-align: center;
   }
 
@@ -19,8 +18,12 @@
     flex-direction: column;
     gap: 2rem;
 
-    max-height: 65vh;
+    max-height: 40vh;
     overflow-y: auto;
+
+    @include tablet {
+      max-height: 55vh;
+    }
 
     @include xl_desktop {
       max-height: 70vh;
@@ -43,7 +46,9 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .full { grid-column: 1 / -1; }
+      .full {
+        grid-column: 1 / -1;
+      }
     }
 
     .form__group {
@@ -56,17 +61,25 @@
         color: $gray-600;
       }
 
-      select, input, textarea {
+      select,
+      input,
+      textarea {
         padding: 0.75rem;
         border: 1px solid $gray-300;
         border-radius: 0.5rem;
         font-size: $font-size-sm;
       }
 
-      textarea { min-height: 80px; resize: vertical; }
+      textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
     }
 
-    h3 { margin-top: 1rem; margin-bottom: 0.5rem; }
+    h3 {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
 
     .invoice-details {
       width: 100%;
@@ -85,7 +98,8 @@
         border-top: 1px solid $gray-100;
       }
 
-      select, input {
+      select,
+      input {
         width: 100%;
       }
     }
@@ -122,6 +136,10 @@
 .btn {
   @include button($color-primary, $white);
 
-  &--secondary { @include button($color-secondary, $white); }
-  &--error { @include button($color-error, $white); }
+  &--secondary {
+    @include button($color-secondary, $white);
+  }
+  &--error {
+    @include button($color-error, $white);
+  }
 }

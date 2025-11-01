@@ -6,12 +6,13 @@ import { AddressService } from '../../../services/address.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Address } from '../../../models/address';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
-    selector: 'app-company-list',
-    templateUrl: './company-list.component.html',
-    styleUrl: './company-list.component.scss',
-    standalone: false
+  selector: 'app-company-list',
+  templateUrl: './company-list.component.html',
+  styleUrl: './company-list.component.scss',
+  standalone: false
 })
 export class CompanyListComponent {
 
@@ -49,6 +50,7 @@ export class CompanyListComponent {
   constructor(
     private companyService: CompanyService,
     private addressService: AddressService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -172,6 +174,13 @@ export class CompanyListComponent {
     this.selectedCompany = null;
     this.detailVisible = false;
   }
+
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
+  }
+
 
   formatAddress(address: Address): string {
     return this.addressService.formatAddress(address);

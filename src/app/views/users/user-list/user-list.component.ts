@@ -4,12 +4,13 @@ import { DetailConfig } from '../../../models/detail-config';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
-    selector: 'app-user-list',
-    templateUrl: './user-list.component.html',
-    styleUrl: './user-list.component.scss',
-    standalone: false
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrl: './user-list.component.scss',
+  standalone: false
 })
 export class UserListComponent implements OnInit {
 
@@ -46,6 +47,7 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -158,6 +160,13 @@ export class UserListComponent implements OnInit {
     this.errorMessage = error?.message || 'Error en la busqueda de usuarios. Intentelo de nuevo.';
     this.errorVisible = true;
   }
+
+  hasRole(roles: string[]): boolean {
+    const userRoles = this.authService.getRoles();
+    console.log(userRoles)
+    return roles.some(r => userRoles.includes(r));
+  }
+
 
   openDetail(user: User): void {
     this.selectedUser = { ...user };

@@ -31,7 +31,6 @@
       <p>{{ pendingCount }}</p>
     </div>
   </div>
-  <!-- CONTENIDO -->
   <div class="page__content">
     <div class="page__actions">
       <div class="page__search filters">
@@ -43,7 +42,7 @@
           (ngModelChange)="filterInvoices()"
         />
 
-        <select [(ngModel)]="selectedCompanyId" (change)="filterInvoices()">
+        <select [(ngModel)]="selectedCompanyId" (change)="filterInvoices()" *ngIf="hasRole(['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_COMPANY_SUPER_ADMIN', 'ROLE_COMPANY_ADMIN'])">
           <option value="">Todas las empresas</option>
           <option *ngFor="let c of companies" [value]="c.id">
             {{ c.name }}
